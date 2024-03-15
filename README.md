@@ -1,2 +1,2 @@
 # PennyWise
-# CECS 443 Project
+CECS 443 Project
