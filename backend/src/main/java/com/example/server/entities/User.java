@@ -1,21 +1,26 @@
-package com.example.server.entityclasses;
+package com.example.server.entities;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "users") 
 public class User {
     private String username;
     private String password;
     private String email;
-    private long id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
+    @Id
+    private Long id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
 
     /* CONSTRUCTORS */
     public User() 
-    {
+    { 
         setUsername("");
         setPassword("");
         setEmail("");
-        this.id = -1;
+        this.id = Long.MIN_VALUE; 
     }
 
-    public User(String username, String password, String email, long id)
+    public User(String username, String password, String email, Long id)
     {
         setUsername(username);
         setPassword(password);
