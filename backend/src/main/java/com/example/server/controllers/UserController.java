@@ -9,9 +9,12 @@ import com.example.server.interfaces.UserRepository;
 @RestController
 @RequestMapping("/users")
 public class UserController {
+    private final UserRepository userRepo;
 
     @Autowired
-    private UserRepository userRepo;
+    public UserController(UserRepository userRepo) {
+        this.userRepo = userRepo;
+    }
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user)
@@ -20,26 +23,25 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public boolean loginUser(@RequestBody User requestingUser)
+    public User loginUser(@RequestBody User requestingUser)
     {
-        User user = userRepo.findByID(requestingUser.getID());
-
-        if(user != null)
-        {
-            return true;
-        }
-        return false;
+        return userRepo.findByID(requestingUser.getID());
     }
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
         return userRepo.findById(id).orElse(null);
     }
-
-    @PutMapping("/{password}")
-    public User updateUser(@PathVariable String password, @RequestBody User updatingUser) {
-        updatingUser.setPassword(password);
-        return userRepo.save(updatingUser);
+ 
+    @PatchMapping("/{id}/{password}")
+    public User updateUser(@PathVariable Long id, @RequestBody String password) {
+        User user = userRepo.findById(id).orElse(null);
+        if(password != null && user != null)
+        {
+            user.setPassword(password);
+            return userRepo.save(user);
+        }
+        return null;
     }
 
     @DeleteMapping("/{id}")
