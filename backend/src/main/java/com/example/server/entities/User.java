@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String email;
     @Id
-    private Long id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
+    private String id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
 
     /* CONSTRUCTORS */
     public User() 
@@ -17,10 +17,10 @@ public class User {
         setUsername("");
         setPassword("");
         setEmail("");
-        this.id = Long.MIN_VALUE; 
+        this.id = ""; 
     }
 
-    public User(String username, String password, String email, Long id)
+    public User(String username, String password, String email, String id)
     {
         setUsername(username);
         setPassword(password);
@@ -44,7 +44,7 @@ public class User {
         return email;
     }
 
-    public long getID()
+    public String getID()
     {
         return id;
     }
