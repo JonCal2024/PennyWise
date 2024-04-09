@@ -25,16 +25,16 @@ public class UserController {
     @PostMapping("/login")
     public User loginUser(@RequestBody User requestingUser)
     {
-        return userRepo.findByID(requestingUser.getID());
+        return userRepo.findByID(requestingUser.getID()); 
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userRepo.findById(id).orElse(null);
+    public User getUserById(@PathVariable String id) {
+        return userRepo.findById(id).orElse(null); 
     }
  
-    @PatchMapping("/{id}/{password}")
-    public User updateUser(@PathVariable Long id, @RequestBody String password) {
+    @PatchMapping("/{id}/{password}") 
+    public User updateUser(@PathVariable String id, @RequestBody String password) {
         User user = userRepo.findById(id).orElse(null);
         if(password != null && user != null)
         {
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable String id) {
         userRepo.deleteById(id);
     }
 }

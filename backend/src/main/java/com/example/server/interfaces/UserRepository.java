@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.server.entities.User;
 
-public interface UserRepository extends MongoRepository<User, Long>{
-    User findByID(Long id);
-    Optional<User> findByEmail(String email);
+public interface UserRepository extends MongoRepository<User, String>{
+    User findByID(String id);
+    Optional<User> findByEmail(String email); 
 }
