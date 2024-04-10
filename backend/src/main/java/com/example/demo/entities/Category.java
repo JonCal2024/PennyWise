@@ -1,4 +1,4 @@
-package com.example.server.entities;
+package com.example.demo.entities;
 
 import org.bson.types.Decimal128;
 import org.springframework.data.annotation.Id;

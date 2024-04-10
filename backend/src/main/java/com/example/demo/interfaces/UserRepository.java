@@ -1,10 +1,10 @@
-package com.example.server.interfaces;
+package com.example.demo.interfaces;
 
 import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.example.server.entities.User;
+import com.example.demo.entities.User;
 
 public interface UserRepository extends MongoRepository<User, String>{
     User findByID(String id);

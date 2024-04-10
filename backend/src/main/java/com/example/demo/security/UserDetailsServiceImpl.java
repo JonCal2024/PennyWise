@@ -1,14 +1,16 @@
-package com.example.server.security;
+package com.example.demo.security;
 
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
-import com.example.server.entities.User;
-import com.example.server.interfaces.UserRepository;
+import com.example.demo.entities.User;
+import com.example.demo.interfaces.UserRepository;
 
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserRepository userRepository;

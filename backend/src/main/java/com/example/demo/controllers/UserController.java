@@ -1,10 +1,10 @@
-package com.example.server.controllers;
+package com.example.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.server.entities.User;
-import com.example.server.interfaces.UserRepository;
+import com.example.demo.entities.User;
+import com.example.demo.interfaces.UserRepository;
 
 @RestController
 @RequestMapping("/users")
@@ -48,4 +48,5 @@ public class UserController {
     public void deleteUser(@PathVariable String id) {
         userRepo.deleteById(id);
     }
+
 }

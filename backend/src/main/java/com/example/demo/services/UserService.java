@@ -1,11 +1,11 @@
-package com.example.server.services;
+package com.example.demo.services;
 
 import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.server.entities.User;
-import com.example.server.interfaces.UserRepository;
+import com.example.demo.entities.User;
+import com.example.demo.interfaces.UserRepository;
 
 // Provides business logic, Controller should use instance of UserService
 public class UserService {

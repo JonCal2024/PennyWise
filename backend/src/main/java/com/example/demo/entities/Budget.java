@@ -1,4 +1,4 @@
-package com.example.server.entities;
+package com.example.demo.entities;
 
 import java.sql.Date;
 import java.util.ArrayList;

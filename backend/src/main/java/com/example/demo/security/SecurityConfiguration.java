@@ -1,4 +1,4 @@
-package com.example.server.security;
+package com.example.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                 // Public endpoints
                 .requestMatchers(HttpMethod.POST, "users/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "users/login").permitAll()
+                .requestMatchers(HttpMethod.GET, "users/hello").permitAll()
                 // Private endpoints
                 .anyRequest().authenticated()
             )
