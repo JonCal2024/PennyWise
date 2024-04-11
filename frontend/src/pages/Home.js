@@ -1,5 +1,5 @@
 import {React, useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Home = () => {
     const[formData, setFromData] = useState({
@@ -13,18 +13,18 @@ const Home = () => {
 
 
     return(
-        <div className="homeContainer">
-            <div className="titleContainer">
+        <div className="home-container">
+            <div className="title-container">
                 <h1>Welcome to Pennywise</h1>  
             </div>
-            <h2>Login to get started</h2>
-            <form>
-                <div className="credentialContainer">
-                    <label className="credentialLabel">
-                        <span className="credentialTitle">E-Mail:</span>
+            <form className="credential-form">
+                <div className="credential-container">
+                    <label className="credential-label">
                         <input
+                            aria-label="E-Mail"
+                            aria-required="true"
                             type="text"
-                            className="credentialInput"
+                            className="credential-input"
                             name="email"
                             id="email"
                             placeholder="E-Mail"
@@ -33,11 +33,10 @@ const Home = () => {
                             required
                         />
                     </label>
-                    <label className="credentialLabel">
-                        <span className="credentialTitle">Password:</span>
+                    <label className="credential-label">
                         <input
                             type="text"
-                            className="credentialInput"
+                            className="credential-input"
                             name="password"
                             id="password"
                             placeholder="Password"
@@ -46,6 +45,11 @@ const Home = () => {
                             required
                         />
                     </label>
+                    <button type="submit" className="submit-button">Log in</button>
+                    <p>
+                        Don't have an account? 
+                        <Link className="account-link" to="/signup">Sign Up</Link>
+                    </p>
                 </div>
             </form>
         </div>

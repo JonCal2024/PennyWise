@@ -37,11 +37,8 @@
   }
 }
 
-.div{
-  margin-left: 20px;
-}
 
-.homeContainer{
+.home-container{
  display: flex;
  padding: 100px 85px;
  flex-direction: column;
@@ -49,24 +46,74 @@
  text-align: center;
 }
 
-.credentialContainer{
+.credential-container{
   display: grid;
   row-gap: 8px;
   flex-direction: column;
   justify-content: center;
   text-align: flex;
+  margin: 5px;
+
 }
 
-.credentialLabel{
+.credential-label {
+  display: block;
+  margin-bottom: 1px;
+  font-size: 14px;
+}
+
+.credential-title {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.credential-input {
+  width: 100%;
+  padding: 7px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.credential-input:focus {
+  outline: none;
+  border-color: #333; 
+}
+
+.sign-up-container{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 10 .5px;
-  flex: 1 0 0;
-  width: 100%
+  justify-content: center;
+  text-align: center;
+ }
+
+.sign-up-title{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+ }
+
+ .submit-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 5px;
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.submitButton{
-  margin-top: 8px 
+.submit-button:hover {
+  background-color: #5b768b;
 }
 
+.b{
+  width: 235px;
+}

@@ -13,7 +13,7 @@ const BudgetManager = () => {
   };
 
   return (
-    <div className="budgetContainer">
+    <div className="budget-container">
       <h1>Personal Budget Manager</h1>
       <button onClick={addBudget}>Add Budget</button>
       {budgets.map((budget, index) => (
