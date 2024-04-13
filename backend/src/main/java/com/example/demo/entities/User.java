@@ -20,12 +20,11 @@ public class User {
         this.id = ""; 
     }
 
-    public User(String username, String password, String email, String id)
+    public User(String username, String password, String email)
     {
         setUsername(username);
         setPassword(password);
         setEmail(email);
-        this.id = id;
     }
 
     /* GETTERS */
