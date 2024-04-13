@@ -30,14 +30,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.csrfTokenRepository(
-                CookieCsrfTokenRepository.withHttpOnlyFalse() // CSRF token sent to every REST request that modifies API state
-            ))
+            // .csrf(csrf -> csrf.csrfTokenRepository(
+            //     CookieCsrfTokenRepository.withHttpOnlyFalse() // CSRF token sent to every REST request that modifies API state
+            // ))
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
                 // Public endpoints
                 .requestMatchers(HttpMethod.POST, "users/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "users/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "users/hello").permitAll()
                 // Private endpoints
                 .anyRequest().authenticated()
             )
