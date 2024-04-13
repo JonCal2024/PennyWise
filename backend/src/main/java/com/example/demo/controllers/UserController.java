@@ -4,49 +4,44 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.User;
-import com.example.demo.interfaces.UserRepository;
+import com.example.demo.services.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserRepository userRepo;
+    private final UserService userRepo;
 
     @Autowired
-    public UserController(UserRepository userRepo) {
+    public UserController(UserService userRepo) {
         this.userRepo = userRepo;
     }
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user)
+    public String registerUser(@RequestBody User user) throws Exception
     {
-        return userRepo.save(user);
+        userRepo.signup(user);
+        return user.getEmail();
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody User requestingUser)
+    public User loginUser(@RequestBody User requestingUser) throws Exception
     {
-        return userRepo.findByID(requestingUser.getID()); 
+        return userRepo.findByEmail(requestingUser.getEmail());
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
-        return userRepo.findById(id).orElse(null); 
+    public User getUserByID(@PathVariable String id) {
+        return userRepo.findByID(id); 
     }
  
     @PatchMapping("/{id}/{password}") 
     public User updateUser(@PathVariable String id, @RequestBody String password) {
-        User user = userRepo.findById(id).orElse(null);
-        if(password != null && user != null)
-        {
-            user.setPassword(password);
-            return userRepo.save(user);
-        }
-        return null;
+        return userRepo.updateUser(id, password);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable String id) {
-        userRepo.deleteById(id);
+        userRepo.deleteUser(id);
     }
 
 }
