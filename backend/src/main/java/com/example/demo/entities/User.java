@@ -5,11 +5,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users") 
 public class User {
+    @Id
+    private String id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
     private String username;
     private String password;
     private String email;
-    @Id
-    private String id;    //MAY CHANGE DATATYPE TO SOMETHING MORE SUITABLE
+
 
     /* CONSTRUCTORS */
     public User() 
@@ -28,6 +29,11 @@ public class User {
     }
 
     /* GETTERS */
+    public String getID()
+    {
+        return id;
+    }
+    
     public String getUsername()
     {
         return username;
@@ -43,12 +49,12 @@ public class User {
         return email;
     }
 
-    public String getID()
+    /* SETTERS */
+    public void setID(String id)
     {
-        return id;
+        this.id = id;
     }
 
-    /* SETTERS */
     public void setUsername(String username)
     {
         this.username = username;
