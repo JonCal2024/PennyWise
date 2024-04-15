@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,17 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public User getUserByID(@PathVariable String id) {
+    public User getUserByID(@PathVariable ObjectId id) {
         return userRepo.findByID(id); 
     }
  
     @PatchMapping("/{id}/{password}") 
-    public User updateUser(@PathVariable String id, @RequestBody String password) {
+    public User updateUser(@PathVariable ObjectId id, @RequestBody String password) {
         return userRepo.updateUser(id, password);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable String id) {
+    public void deleteUser(@PathVariable ObjectId id) {
         userRepo.deleteUser(id);
     }
 
