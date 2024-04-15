@@ -1,7 +1,5 @@
 package com.example.demo.services;
 
-import java.util.Optional;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,32 +18,27 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User findByEmail(String email) throws Exception {
-        Optional<User> existingUser = userRepository.findByEmail(email);
-        if (existingUser.isPresent()) {
-            throw new Exception("User already exists");
-        }
-
-        return existingUser.get();
+    public User findByEmail(String email) {
+        User existingUser = userRepository.findByEmail(email).orElse(null);
+        return existingUser;
     }
     
     public User findByID(String id) {
         return userRepository.findByID(id).orElse(null);
     }
 
-    public void signup(User user) throws Exception { // Logic for registering a user (Insert to DB)
+    public void signup(User user) { // Logic for registering a user (Insert to DB)
         String email = user.getEmail();
-        Optional<User> existingUser = userRepository.findByEmail(email);
+        User existingUser = userRepository.findByEmail(email).orElse(null);
 
-        if (existingUser.isPresent()) {
-            throw new Exception("User already exists");
+        if (existingUser == null) {
+
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+            User registeredUser = new User(user.getUsername(), 
+                                        hashedPassword, 
+                                        email);
+            userRepository.save(registeredUser);
         }
-
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
-        User registeredUser = new User(user.getUsername(), 
-                                       hashedPassword, 
-                                       email);
-        userRepository.save(registeredUser);
 
     }
 
