@@ -3,19 +3,20 @@ package com.example.demo.entities;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "budgets")
 public class Budget {
     @Id
-    private String id;
+    private ObjectId id;
     private Date reset_deadline;
-    private String user_id;
+    private ObjectId user_id;
     private ArrayList<Category> categories;
 
     /* CONSTRUCTORS */
-    public Budget(String id, Date reset_deadline, String user_id, ArrayList<Category> catagories)
+    public Budget(ObjectId id, Date reset_deadline, ObjectId user_id, ArrayList<Category> catagories)
     {
         this.id = id;
         setResetDeadline(reset_deadline);
@@ -25,11 +26,11 @@ public class Budget {
 
     public Budget()
     {
-        this("", null, "", null);
+        this(null, null, null, null);
     }
 
     /* GETTERS */
-    public String getID()
+    public ObjectId getID()
     {
         return id;
     }
@@ -39,7 +40,7 @@ public class Budget {
         return reset_deadline;
     }
 
-    public String getUserID()
+    public ObjectId getUserID()
     {
         return user_id;
     }

@@ -1,21 +1,22 @@
 package com.example.demo.entities;
 
 import org.bson.types.Decimal128;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "categories")
 public class Category {
     @Id
-    private String id;
+    private ObjectId id;
     private Decimal128 amount_allocated;
     private String name;
     private String description;
-    private String budget_id;
+    private ObjectId budget_id;
 
     /* CONSTRUCTORS */
 
-    public Category(String id, Decimal128 amount_allocated, String name, String description, String budget_id)
+    public Category(ObjectId id, Decimal128 amount_allocated, String name, String description, ObjectId budget_id)
     {
         this.id = id;
         setAmountAllocated(amount_allocated);
@@ -26,11 +27,11 @@ public class Category {
 
     public Category()
     {
-        this("", Decimal128.NaN, "", "", "");
+        this(null, Decimal128.NaN, "", "", null);
     }
 
     /* GETTERS */
-    public String getID()
+    public ObjectId getID()
     {
         return id;
     }
@@ -50,7 +51,7 @@ public class Category {
         return description;
     }
 
-    public String getBudgetID()
+    public ObjectId getBudgetID()
     {
         return budget_id;
     }
@@ -71,7 +72,7 @@ public class Category {
         this.description = description;
     }
 
-    public void setBudgetID(String budget_id)
+    public void setBudgetID(ObjectId budget_id)
     {
         this.budget_id = budget_id;
     }

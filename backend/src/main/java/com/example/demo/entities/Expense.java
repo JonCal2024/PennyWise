@@ -3,20 +3,21 @@ package com.example.demo.entities;
 import java.sql.Date;
 
 import org.bson.types.Decimal128;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "expenses")
 public class Expense {
     @Id
-    private String id;
+    private ObjectId id;
     private Decimal128 amount;
     private String comment;
     private Date date_entered;
     private String category_id;
 
     /* CONSTRUCTORS */
-    public Expense(String id, Decimal128 amount, String comment, Date date_entered, String category_id)
+    public Expense(ObjectId id, Decimal128 amount, String comment, Date date_entered, String category_id)
     {
         this.id = id;
         setAmount(amount);
@@ -27,11 +28,11 @@ public class Expense {
     
     public Expense()
     {
-        this("", Decimal128.NaN, "", null, "");
+        this(null, Decimal128.NaN, "", null, "");
     }
 
     /* GETTERS */
-    public String getID()
+    public ObjectId getID()
     {
         return id;
     }
