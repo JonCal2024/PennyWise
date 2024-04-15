@@ -17,14 +17,14 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@RequestBody User user) throws Exception
+    public String registerUser(@RequestBody User user) 
     {
         userRepo.signup(user);
         return user.getEmail();
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody User requestingUser) throws Exception
+    public User loginUser(@RequestBody User requestingUser)
     {
         return userRepo.findByEmail(requestingUser.getEmail());
     }
