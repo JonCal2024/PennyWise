@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.User;
+import com.example.demo.security.JwtHelper;
 import com.example.demo.services.UserService;
 
 @RestController
@@ -30,10 +31,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody User requestingUser)
+    public String loginUser(@RequestBody User requestingUser)
     {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestingUser.getEmail(), requestingUser.getPassword()));
-        return userRepo.findByEmail(requestingUser.getEmail());
+        String token = JwtHelper.generateToken(requestingUser.getEmail());
+        return token;
     }
 
     @GetMapping("/{id}")
