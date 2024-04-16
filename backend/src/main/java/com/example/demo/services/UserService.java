@@ -53,7 +53,6 @@ public class UserService {
         return null;
     }
 
-    //THIS COMMENT IS MADE SO I CAN PUSH TO THE REPO, DELETE ASAP
     public void deleteUser(ObjectId id) {
         userRepository.deleteById(id);
     }
