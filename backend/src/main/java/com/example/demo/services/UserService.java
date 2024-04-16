@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import org.bson.types.ObjectId;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class UserService {
         return existingUser;
     }
     
-    public User findByID(String id) {
+    public User findByID(ObjectId id) {
         return userRepository.findByID(id).orElse(null);
     }
 
@@ -42,7 +43,7 @@ public class UserService {
 
     }
 
-    public User updateUser(String id, String password) {
+    public User updateUser(ObjectId id, String password) {
         User user = userRepository.findByID(id).orElse(null);
         if(password != null && user != null)
         {
@@ -52,7 +53,8 @@ public class UserService {
         return null;
     }
 
-    public void deleteUser(String id) {
+    //THIS COMMENT IS MADE SO I CAN PUSH TO THE REPO, DELETE ASAP
+    public void deleteUser(ObjectId id) {
         userRepository.deleteById(id);
     }
 
