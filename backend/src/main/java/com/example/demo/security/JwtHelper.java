@@ -1,52 +1,50 @@
-// package com.example.demo.security;
+package com.example.demo.security;
 
-// import io.jsonwebtoken.Claims;
-// import io.jsonwebtoken.Jwts;
-// import io.jsonwebtoken.SignatureAlgorithm;
-// import java.security.Key;
-// import java.time.Instant;
-// import java.time.temporal.ChronoUnit;
-// import java.util.Date;
-// import org.springframework.security.core.userdetails.UserDetails;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
-// public class JwtHelper {
-//     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-//     private static final int MINUTES = 60;
+import java.security.Key;
+import java.util.Date;
 
-//     public static String generateToken(String email) {
-//         var now = Instant.now();
-//         return Jwts.builder()
-//             .setSubject(email)
-//             .setIssuedAt(Date.from(now))
-//             .setExpiration(Date.from(now.plus(MINUTES, ChronoUnit.MINUTES)))
-//             .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
-//             .compact();
-//     }
+import org.springframework.security.core.userdetails.UserDetails;
 
-//     public static String extractUsername(String token) {
-//         return getTokenBody(token).getSubject();
-//     }
+public class JwtHelper {
 
-//     public static Boolean validateToken(String token, UserDetails userDetails) {
-//         final String username = extractUsername(token);
-//         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
-//     }
+  private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+  private static final int EXPIRATION_TIME = 3600000;
 
-//     private static Claims getTokenBody(String token) {
-//         try {
-//         return ((Object) Jwts
-//             .parser()
-//             .setSigningKey(SECRET_KEY))
-//             .build()
-//             .parseSignedClaims(token)
-//             .getPayload();
-//         } catch (SignatureException | ExpiredJwtException e) { // Invalid signature or expired token
-//         throw new AccessDeniedException("Access denied: " + e.getMessage());
-//         }
-//     }
+  public static String generateToken(String email) {
+    return Jwts.builder()
+        .setSubject(email)
+        .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+        .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
+        .compact();
+}
 
-//     private static boolean isTokenExpired(String token) {
-//         Claims claims = getTokenBody(token);
-//         return claims.getExpiration().before(new Date());
-//     }
-// }
+  public static String extractEmail(String token) {
+    return getTokenBody(token).getSubject();
+  }
+
+  public static Boolean validateToken(String token, UserDetails userDetails) {
+    final String username = extractEmail(token);
+    return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+  }
+
+  private static Claims getTokenBody(String token) {
+    Claims claims;
+    claims = Jwts.parserBuilder()
+            .setSigningKey(SECRET_KEY)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+
+    return claims;
+}
+
+  private static boolean isTokenExpired(String token) {
+    Claims claims = getTokenBody(token);
+    return claims.getExpiration().before(new Date());
+  }
+}
