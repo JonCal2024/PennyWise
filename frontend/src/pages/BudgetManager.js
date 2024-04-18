@@ -3,23 +3,24 @@ import React, { useState } from 'react';
 const BudgetManager = () => {
   const [budgets, setBudgets] = useState([]);
 
-  // Function to add a new category (change to budget)
   const addBudget = () => {
-    const budgetName = prompt("Enter budget name:");
-    const budgetTotal = prompt("Enter the amount for the budget:");
-    if (budgetName && budgetTotal) {
-      setBudgets([...budgets, { name: budgetName, budgetTotal: parseFloat(budgetTotal)}]);
-    }
+      const budgetName = prompt("Enter budget name: ");
+      const budgetTotal = prompt("Enter the amount for the budget: ");
+      if (budgetName && budgetTotal) {
+          setBudgets([...budgets, { name: budgetName, budgetTotal: parseFloat(budgetTotal), categories: []}]);
+      }
   };
 
   return (
-    <div className="budget-container">
-      <h1>Personal Budget Manager</h1>
-      <button onClick={addBudget}>Add Budget</button>
-      {budgets.map((budget, index) => (
-        <Budget key={index} index={index} budget={budget} budgets={budgets} setBudgets={setBudgets} />
-      ))}
-    </div>
+      <div className="budget-manager-container">
+          <h1>Personal Budget Manager</h1>
+          <button className="add-button" onClick={addBudget}>Add Budget</button>
+          <div className="budgets-container">
+              {budgets.map((budget, index) => (
+                  <Category key={index} index={index} budget={budget} budgets={budgets} setBudgets={setBudgets} />
+              ))}
+          </div>
+      </div>
   );
 }
 
