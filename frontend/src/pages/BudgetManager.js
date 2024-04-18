@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 const BudgetManager = () => {
-  const [budgets, setBudgets] = useState([]);
+    const [budgets, setBudgets] = useState([]);
 
-  const addBudget = () => {
+    const addBudget = () => {
       const budgetName = prompt("Enter budget name: ");
       const budgetTotal = prompt("Enter the amount for the budget: ");
       if (budgetName && budgetTotal) {
@@ -25,32 +25,36 @@ const BudgetManager = () => {
 }
 
 const Category = ({ budget, index, budgets, setBudgets }) => {
-  const [categories, setCategories] = useState([]);
-  const [categoryName, setCategoryName] = useState("");
-  const [categoryAmount, setCategoryAmount] = useState("");
-  const [originalBudget, setOriginalBudget] = useState(budget.budgetTotal);
+    const [categories, setCategories] = useState([]);
+    const [originalBudget, setOriginalBudget] = useState(budget.budgetTotal);
 
-  const addCategory = () => {
-    const newCategoryAmount = parseFloat(categoryAmount);
-    if (!isNaN(newCategoryAmount) && newCategoryAmount > 0) {
-      // Subtract item amount from category budget
-      const updatedBudget = budget.budgetTotal - newCategoryAmount;
-      //update the budget
-      setBudgets(budgets.map((bud, i) => {
-        if (i === index) {
-          return { ...bud, budgetTotal: updatedBudget };
+    const addCategory = () => {
+        const categoryNameInput = prompt("Enter category name: ");
+        const amount = prompt("Enter the amount of budget allocated for the category: ");
+        const categoryAmountInput = parseFloat(amount);
+        const categoryDescription = prompt("Enter a description for the category: ");
+        
+        if (categoryNameInput && !isNaN(categoryAmountInput) && categoryAmountInput > 0) {
+        
+            if (budget.budgetTotal - categoryAmountInput < 0) {
+                alert("Adding this category would exceed the original budget!");
+                return;
+            }
+
+            const updatedBudget = budget.budgetTotal - categoryAmountInput;
+
+            setBudgets(budgets.map((bud, i) => {
+                if (i === index) {
+                    return { ...bud, budgetTotal: updatedBudget, categories: [...bud.categories, { name: categoryNameInput, amount: categoryAmountInput }] };
+                }
+                return bud;
+            }));
+      
+            setCategories([...categories, { name: categoryNameInput, amount: categoryAmountInput, description: categoryDescription }]);
+        } else {
+            alert("Invalid category input!");
         }
-        return bud;
-      }));
-
-      setCategories([...categories, { name: categoryName, amount: newCategoryAmount }]);
-      setCategoryName("")
-      setCategoryAmount("")
-    } else {
-      alert("Invalid item amount!");
-    }
-    console.log(categories);
-  };
+    };
   
 
   return (
