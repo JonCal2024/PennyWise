@@ -19,7 +19,7 @@ public class User {
         setUsername("");
         setPassword("");
         setEmail("");
-        this.id = null; 
+        setID(null);
     }
 
     public User(String username, String password, String email)
