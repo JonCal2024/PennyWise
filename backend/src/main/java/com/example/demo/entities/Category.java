@@ -16,18 +16,21 @@ public class Category {
 
     /* CONSTRUCTORS */
 
-    public Category(ObjectId id, Decimal128 amount_allocated, String name, String description, ObjectId budget_id)
+    public Category()
     {
-        this.id = id;
+        setID(id);
         setAmountAllocated(amount_allocated);
         setName(name);
         setDescription(description);
         setBudgetID(budget_id);
     }
 
-    public Category()
+    public Category(Decimal128 amount_allocated, String name, String description, ObjectId budget_id)
     {
-        this(null, Decimal128.NaN, "", "", null);
+        setAmountAllocated(amount_allocated);
+        setName(name);
+        setDescription(description);
+        setBudgetID(budget_id);
     }
 
     /* GETTERS */
@@ -57,6 +60,10 @@ public class Category {
     }
 
     /* SETTERS */
+    public void setID(ObjectId id) {
+        this.id = id;
+    }
+
     public void setAmountAllocated(Decimal128 amount_allocated)
     {
         this.amount_allocated = amount_allocated;
