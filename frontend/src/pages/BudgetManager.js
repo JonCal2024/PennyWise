@@ -24,7 +24,7 @@ const BudgetManager = () => {
   );
 }
 
-const Budget = ({ budget, index, budgets, setBudgets }) => {
+const Category = ({ budget, index, budgets, setBudgets }) => {
   const [categories, setCategories] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [categoryAmount, setCategoryAmount] = useState("");
