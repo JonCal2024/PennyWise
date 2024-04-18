@@ -2,19 +2,25 @@ package com.example.demo.controllers;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.User;
+import com.example.demo.security.JwtHelper;
 import com.example.demo.services.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
     private final UserService userRepo;
+    private final AuthenticationManager authenticationManager;
+  
 
     @Autowired
-    public UserController(UserService userRepo) {
+    public UserController(UserService userRepo, AuthenticationManager authenticationManager) {
         this.userRepo = userRepo;
+        this.authenticationManager = authenticationManager;
     }
 
     @PostMapping("/register")
@@ -25,9 +31,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody User requestingUser)
+    public String loginUser(@RequestBody User requestingUser)
     {
-        return userRepo.findByEmail(requestingUser.getEmail());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestingUser.getEmail(), requestingUser.getPassword()));
+        String token = JwtHelper.generateToken(requestingUser.getEmail());
+        return token;
     }
 
     @GetMapping("/{id}")
