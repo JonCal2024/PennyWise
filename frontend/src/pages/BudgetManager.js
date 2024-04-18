@@ -57,33 +57,25 @@ const Category = ({ budget, index, budgets, setBudgets }) => {
     };
   
 
-  return (
-    <div>
-      <h3>{budget.name}</h3>
-      <p>Original Budget: ${originalBudget}</p>
-      <p>Remaining Budget: ${budget.budgetTotal}</p>
-      <input
-        type="text"
-        placeholder="Category Name"
-        value={categoryName}
-        onChange={(e) => setCategoryName(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Category Amount"
-        value={categoryAmount}
-        onChange={(e) => setCategoryAmount(e.target.value)}
-      />
-      <button onClick={addCategory}>Add Category</button>
-      <ul>
-        {categories.map((cat, i) => (
-          <li key={i}>
-            {cat.name} - ${cat.amount}
-          </li>
-        ))}
-      </ul>
-    </div>
+    return (
+        <div className="budget-container" key={index}>
+            <h3>{budget.name}</h3>
+            <p>Original Budget: ${originalBudget}</p>
+            <p>Remaining Budget: ${budget.budgetTotal}</p>
+
+            <button onClick={addCategory}>Add Category</button>
+            <div className="categories-container">
+                {categories.map((category, categoryIndex) => (
+                    <Expense key={categoryIndex} index={categoryIndex} category={category} categories={categories} setCategories={setCategories} />
+                ))}
+            </div>
+        </div>
   );
 }
+
+const  Expense = ({ category, index, categories, setCategories}) => {
+    
+}
+
 
 export default BudgetManager;
