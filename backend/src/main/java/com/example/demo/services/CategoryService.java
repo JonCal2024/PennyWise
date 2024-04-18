@@ -3,6 +3,7 @@ package com.example.demo.services;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.CategoryRequest;
 import com.example.demo.entities.Category;
 import com.example.demo.interfaces.CategoryRepository;
 
@@ -20,7 +21,17 @@ public class CategoryService {
     }
 
     public void addCategory(Category category) {
-        categoryRepository.save(category);
+        
+        Category existingCategory = categoryRepository.findByName(category.getName()).orElse(null);
+
+        if (existingCategory == null) {
+
+            Category newCategory = new Category(category.getAmountAllocated(), 
+                                                category.getName(), 
+                                                category.getDescription(),
+                                                category.getBudgetID());
+            categoryRepository.save(newCategory);
+        }
     }
     
     public void removeCategory(Category category) {
