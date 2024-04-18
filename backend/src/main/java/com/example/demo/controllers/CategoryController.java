@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.dto.CategoryRequest;
 import com.example.demo.entities.Category;
 import com.example.demo.services.CategoryService;
 
@@ -15,23 +14,17 @@ import com.example.demo.services.CategoryService;
 @RequestMapping("/categories")
 public class CategoryController {
     private CategoryService categoryService;  
-    //private BudgetService budgetService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService/* , BudgetService budgetService*/) {
+    public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
     @PostMapping("/addCategory")
-    public Category addCategory(@RequestBody CategoryRequest categoryRequest) {
-        String budgetName = categoryRequest.name();
-        //ObjectId budgetID = budgetService.findByName();
-        Category category = new Category(categoryRequest.amount_allocated(),
-                                         categoryRequest.name(), 
-                                         categoryRequest.description(),
-                                         null);
+    public void addCategory(@RequestBody Category category) {
+
         categoryService.addCategory(category);
-        return category;
+        
     }
 
     @PostMapping("/removeCategory")
