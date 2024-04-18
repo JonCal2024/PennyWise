@@ -74,8 +74,28 @@ const Category = ({ budget, index, budgets, setBudgets }) => {
 }
 
 const  Expense = ({ category, index, categories, setCategories}) => {
-    
-}
+    const [expenses, setExpenses] = useState([]);
 
+    const addExpense = () => {
+        const expenseNameInput = prompt("Enter expense name: ");
+        const amount = prompt("Enter the cost of this expense: ");
+        const expenseAmountInput = parseFloat(amount);
+        const categoryComment= prompt("Enter a comment for this expense: "); 
+        
+    }
+
+  return (
+    <div className="category-container" key={index}>
+      <h4>{category.name}</h4>
+      <p>Amount allocated: ${category.amount}</p>
+      {expenses.map((expense, expenseIndex) => (
+        <div className="expense-container" key={expenseIndex}>
+          <p>{expense.name} - ${expense.amount}</p>
+        </div>
+      ))}
+      <button onClick={addExpense}>Add Expense</button>
+    </div>
+  );
+}
 
 export default BudgetManager;
