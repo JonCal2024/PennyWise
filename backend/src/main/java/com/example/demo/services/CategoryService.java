@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Category;
-import com.example.demo.interfaces.CategoryRepository;
+import com.example.demo.interfaces.CategoryRepository; 
 
 @Service
 public class CategoryService {

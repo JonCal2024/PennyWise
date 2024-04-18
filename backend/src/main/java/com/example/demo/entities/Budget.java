@@ -42,7 +42,7 @@ public class Budget {
 
     public ObjectId getUserID()
     {
-        return user_id;
+        return user_id; 
     }
 
     public ArrayList<Category> getCategories()
