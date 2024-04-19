@@ -1,5 +1,6 @@
 package com.example.demo.services;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entities.Budget;
@@ -18,5 +19,25 @@ public class BudgetService {
     public void addBudget(Budget budget)
     {
         budgetRepository.save(budget);
+    }
+
+    public Budget findByID(ObjectId id)
+    {
+        return budgetRepository.findByID(id).orElse(null);
+    }
+
+    public Budget updateBudget(ObjectId id, Budget newBudget)
+    {
+        Budget budget = budgetRepository.findByID(id).orElse(null);
+        if(budget != null)
+        {
+            return budgetRepository.save(newBudget);
+        }
+        return null;
+    }
+
+    public void deleteBudget(ObjectId id)
+    {
+        budgetRepository.deleteById(id);
     }
 }

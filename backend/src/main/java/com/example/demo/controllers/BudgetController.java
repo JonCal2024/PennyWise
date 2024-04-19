@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +29,12 @@ public class BudgetController {
     public void addBudget(@RequestBody Budget budget)
     {
         budgetService.addBudget(budget);
+    }
+
+    @GetMapping("/{id}")
+    public Budget getBudgetByID(@PathVariable ObjectId id)
+    {
+        return budgetService.findbyID(id);
     }
 
     @DeleteMapping("/{id}")
