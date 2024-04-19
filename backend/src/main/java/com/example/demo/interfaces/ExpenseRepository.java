@@ -1,5 +1,6 @@
 package com.example.demo.interfaces;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.bson.types.ObjectId;
@@ -9,5 +10,5 @@ import com.example.demo.entities.Expense;
 
 public interface ExpenseRepository extends MongoRepository<Expense, ObjectId>{
     Optional<Expense> findByID(ObjectId id);
-    Optional<Expense> findByCategoryID(ObjectId id);
+    List<Expense> findByCategoryID(ObjectId categoryID);
 }
