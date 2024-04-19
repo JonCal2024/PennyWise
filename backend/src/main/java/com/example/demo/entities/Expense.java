@@ -7,17 +7,17 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "expenses")
+@Document(collection = "expenses") 
 public class Expense {
     @Id
     private ObjectId id;
     private Decimal128 amount;
     private String comment;
     private Date date_entered;
-    private String category_id;
+    private ObjectId category_id;
 
     /* CONSTRUCTORS */
-    public Expense(Decimal128 amount, String comment, Date date_entered, String category_id)
+    public Expense(Decimal128 amount, String comment, Date date_entered, ObjectId category_id)
     {
         setAmount(amount);
         setComment(comment);
@@ -27,7 +27,7 @@ public class Expense {
     
     public Expense()
     {
-        this(null, "", null, "");
+        this(null, "", null, null);
     }
 
     /* GETTERS */
@@ -51,7 +51,7 @@ public class Expense {
         return date_entered;
     }
 
-    public String getCategoryID()
+    public ObjectId getCategoryID()
     {
         return category_id;
     }
@@ -72,7 +72,7 @@ public class Expense {
         this.date_entered = date_entered;
     }
 
-    public void setCatagoryID(String category_id)
+    public void setCatagoryID(ObjectId category_id)
     {
         this.category_id = category_id;
     }
