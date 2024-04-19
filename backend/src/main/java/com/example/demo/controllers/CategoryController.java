@@ -1,7 +1,11 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,9 +31,15 @@ public class CategoryController {
         
     }
 
-    @PostMapping("/removeCategory")
+    @DeleteMapping("/removeCategory")
     public void removeCategory(@RequestBody Category category) {
+
+        categoryService.removeCategory(category);
 
     }
 
+    @GetMapping("/getAllCategories")
+    public List<Category> getAllCategories(ObjectId budgetID) {
+        return categoryService.findAllCategoriesByBudgetID(budgetID);
+    }
 }
