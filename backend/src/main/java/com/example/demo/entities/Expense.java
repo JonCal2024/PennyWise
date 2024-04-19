@@ -17,9 +17,8 @@ public class Expense {
     private String category_id;
 
     /* CONSTRUCTORS */
-    public Expense(ObjectId id, Decimal128 amount, String comment, Date date_entered, String category_id)
+    public Expense(Decimal128 amount, String comment, Date date_entered, String category_id)
     {
-        this.id = id;
         setAmount(amount);
         setComment(comment);
         setDateEntered(date_entered);
@@ -28,7 +27,7 @@ public class Expense {
     
     public Expense()
     {
-        this(null, Decimal128.NaN, "", null, "");
+        this(null, "", null, "");
     }
 
     /* GETTERS */
