@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +36,11 @@ public class CategoryService {
     }
     
     public void removeCategory(Category category) {
-        categoryRepository.delete(category);
+        categoryRepository.deleteByName(category.getName());
+    }
+
+    public List<Category> findAllCategoriesByBudgetID(ObjectId budgetID) {
+        return categoryRepository.findByBudgetID(budgetID);
     }
 
 }
