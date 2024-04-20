@@ -1,10 +1,11 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +35,13 @@ public class BudgetController {
     @GetMapping("/{id}")
     public Budget getBudgetByID(@PathVariable ObjectId id)
     {
-        return budgetService.findbyID(id);
+        return budgetService.findByID(id);
+    }
+
+    @GetMapping("/getAllBudgets")
+    public List<Budget> getAllBudgets(ObjectId userID)
+    {
+        return budgetService.findAllBudgetsByUserID(userID);
     }
 
     @DeleteMapping("/{id}")
