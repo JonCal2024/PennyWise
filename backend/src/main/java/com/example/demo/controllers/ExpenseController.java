@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,7 +17,7 @@ import com.example.demo.services.ExpenseService;
 
 //MAY ADD getByDate(Date), getAmountsLessThan(Decimal), getAmountsGreaterThan(Decimal), etc. IF NEEDED
 
-@RestController
+@RestController 
 @RequestMapping("/expenses")
 public class ExpenseController {
     private final ExpenseService expenseService;
@@ -36,6 +38,12 @@ public class ExpenseController {
     public Expense getExpenseByID(@PathVariable ObjectId id)
     {
         return expenseService.findByID(id);
+    }
+
+    @GetMapping("/getAllExpenses")
+    public List<Expense> getAllExpenses(ObjectId categoryID)
+    {
+        return expenseService.findAllExpensesByCategoryID(categoryID);
     }
 
     @DeleteMapping("/deleteExpense")

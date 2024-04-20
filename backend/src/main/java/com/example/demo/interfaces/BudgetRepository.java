@@ -9,5 +9,5 @@ import com.example.demo.entities.Budget;
 
 public interface BudgetRepository extends MongoRepository<Budget, ObjectId>{
     Optional<Budget> findByID(ObjectId id);
-    Optional<Budget> findByUserID(ObjectId user_id);
-} 
+    List<Budget> findByUserID(ObjectId user_id);
+}  
