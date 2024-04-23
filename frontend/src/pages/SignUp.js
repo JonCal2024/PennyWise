@@ -9,8 +9,22 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
 
     const handleSubmit = (event) => {
-        
-      };
+        event.preventDefault();
+
+        const userInfo = {
+            email : email,
+            username : userName,
+            password : password
+        }
+    
+        axios.post('http://localhost:8080/users/register', userInfo)
+        .then(function (response) {
+          console.log(response.data); 
+        })
+        .catch(function (error) {
+          console.error('Error:', error);
+        });       
+    };
 
     return(
         <div className="sign-up-container">
