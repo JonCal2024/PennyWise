@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.example.demo.entities.User;
 import com.example.demo.security.JwtHelper;
 import com.example.demo.services.UserService;
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -19,7 +19,6 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userRepo, AuthenticationManager authenticationManager) {
-
         this.userRepo = userRepo;
         this.authenticationManager = authenticationManager;
     }
