@@ -43,4 +43,13 @@ public class CategoryService {
         return categoryRepository.findByBudgetID(budgetID);
     }
 
+    public Category updateCategory(ObjectId id, Category updatedCategory) {
+        Category category = categoryRepository.findByID(id).orElse(null);
+        if(category != null)
+        {
+            return categoryRepository.save(updatedCategory);
+        }
+        return null;
+    }
+
 }
