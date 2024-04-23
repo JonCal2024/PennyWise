@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,4 +44,16 @@ public class CategoryController {
     public List<Category> getAllCategories(ObjectId budgetID) {
         return categoryService.findAllCategoriesByBudgetID(budgetID);
     }
+
+    @GetMapping("/{id}")
+    public Category getCategoryByID(@PathVariable ObjectId id) {
+        return categoryService.findByID(id);
+    }
+
+
+    @PatchMapping("/updateCategory")
+    public Category updateCategory(@RequestBody Category category) {
+        return categoryService.updateCategory(category.getID(), category);
+    }
+
 }
