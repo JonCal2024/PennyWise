@@ -18,7 +18,7 @@ public class CategoryService {
     }
 
     public Category findByID(ObjectId id) {
-        return categoryRepository.findByID(id).orElse(null);
+        return categoryRepository.findById(id).orElse(null);
     }
 
     public void addCategory(Category category) {
@@ -40,7 +40,7 @@ public class CategoryService {
     }
 
     public List<Category> findAllCategoriesByBudgetID(ObjectId budgetID) {
-        return categoryRepository.findByBudgetID(budgetID);
+        return categoryRepository.findByBudgetId(budgetID);
     }
 
 }
