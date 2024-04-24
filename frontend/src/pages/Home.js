@@ -12,6 +12,8 @@ const Home = () => {
         setFromData({...formData, [e.target.name]: e.target.value})
     }
 
+    const navigate = useNavigate(); 
+
     const handleLogin = (event) =>{
         event.preventDefault();
 
@@ -22,7 +24,7 @@ const Home = () => {
 
         axios.post('http://localhost:8080/users/login', loginInfo)
         .then(function(response){
-            alert("login successfully")
+            navigate('/manage');
         }).catch(function(error){
             alert(error)
         })
