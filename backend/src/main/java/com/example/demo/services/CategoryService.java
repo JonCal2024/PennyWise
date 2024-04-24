@@ -19,7 +19,6 @@ public class CategoryService {
 
     public Category findByID(ObjectId id) {
         return categoryRepository.findByID(id).orElse(null);
-        return null;
     }
 
     public void addCategory(Category category) {
