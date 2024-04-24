@@ -8,6 +8,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.example.demo.entities.User;
 
 public interface UserRepository extends MongoRepository<User, ObjectId>{
-    Optional<User> findByID(ObjectId id);
+    Optional<User> findById(ObjectId id);
     Optional<User> findByEmail(String email); 
 }
