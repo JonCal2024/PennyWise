@@ -1,12 +1,16 @@
 package com.example.demo.interfaces;
 
-import com.example.demo.entities.Category;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
+import java.util.List;
 import java.util.Optional;
 
-public interface CategoryRepository extends MongoRepository<Category, String> {
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
+import com.example.demo.entities.Category;
+
+public interface CategoryRepository extends MongoRepository<Category, ObjectId>{
+    Optional<Category> findByID(ObjectId id);
+    Optional<Category> findByName(String name);
+    List<Category> findByBudgetID(ObjectId budgetID);
+    void deleteByName(String name);
 }
-
-
