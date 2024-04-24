@@ -28,7 +28,7 @@ public class UserController {
     public String registerUser(@RequestBody User user) 
     {
         userRepo.signup(user);
-        return user.getEmail();
+        return userRepo.findByEmail(user.getEmail()).getID().toHexString();
     }
 
     @PostMapping("/login")
@@ -41,7 +41,9 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserByID(@PathVariable ObjectId id) {
-        return userRepo.findByID(id); 
+        User retrievedUser = userRepo.findByID(id);
+        retrievedUser.setPassword("");
+        return retrievedUser; 
     }
  
     @PatchMapping("/{id}/{password}") 
