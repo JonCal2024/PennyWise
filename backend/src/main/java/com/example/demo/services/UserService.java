@@ -25,7 +25,7 @@ public class UserService {
     }
     
     public User findByID(ObjectId id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findByID(id).orElse(null);
     }
 
     public void signup(User user) { // Logic for registering a user (Insert to DB)
@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public User updateUser(ObjectId id, String password) {
-        User user = userRepository.findById(id).orElse(null);
+        User user = userRepository.findByID(id).orElse(null);
         if(password != null && user != null)
         {
             user.setPassword(password);

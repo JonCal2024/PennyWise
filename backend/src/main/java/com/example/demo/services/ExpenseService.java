@@ -25,7 +25,7 @@ public class ExpenseService {
 
     public Expense findByID(ObjectId id)
     {
-        return expenseRepository.findById(id).orElse(null);
+        return expenseRepository.findByID(id).orElse(null);
     }
 
     public void deleteExpense(Expense expense)
@@ -35,6 +35,6 @@ public class ExpenseService {
 
     public List<Expense> findAllExpensesByCategoryID(ObjectId categoryID)
     {
-        return expenseRepository.findByCategoryId(categoryID);
+        return expenseRepository.findByCategoryID(categoryID);
     }
 }
