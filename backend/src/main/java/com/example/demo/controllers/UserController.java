@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
 import com.example.demo.entities.User;
 import com.example.demo.security.JwtHelper;
 import com.example.demo.services.UserService;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/users")

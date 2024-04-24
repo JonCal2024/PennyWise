@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-
+import axios from 'axios'
 
 const SignUp = () => {
 
@@ -37,7 +37,7 @@ const SignUp = () => {
                         <input
                             type="email"
                             className="credential-input"
-                            placeHolder="Email"
+                            placeholder="Email"
                             value ={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -46,7 +46,7 @@ const SignUp = () => {
                         <input
                             type="username"
                             className="credential-input"
-                            placeHolder="Username"
+                            placeholder="Username"
                             value ={userName}
                             onChange={(e) => setUserName(e.target.value)}
                         />
@@ -55,7 +55,7 @@ const SignUp = () => {
                         <input
                             type="password"
                             className="credential-input"
-                            placeHolder="Password"
+                            placeholder="Password"
                             value ={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />

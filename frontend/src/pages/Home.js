@@ -1,5 +1,6 @@
 import {React, useState} from 'react'
 import { useNavigate, Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Home = () => {
     const[formData, setFromData] = useState({
@@ -11,6 +12,21 @@ const Home = () => {
         setFromData({...formData, [e.target.name]: e.target.value})
     }
 
+    const handleLogin = (event) =>{
+        event.preventDefault();
+
+        const loginInfo = {
+            email : formData.email,
+            password : formData.password
+        }
+
+        axios.post('http://localhost:8080/users/login', loginInfo)
+        .then(function(response){
+            alert("login successfully")
+        }).catch(function(error){
+            alert(error)
+        })
+    }
 
     return(
         <div className="home-container">
@@ -45,7 +61,7 @@ const Home = () => {
                             required
                         />
                     </label>
-                    <button type="submit" className="submit-button">Log in</button>
+                    <button type="submit" className="submit-button" onClick={handleLogin}>Log in</button>
                     <p>
                         Don't have an account? 
                         <Link className="account-link" to="/signup">Sign Up</Link>
