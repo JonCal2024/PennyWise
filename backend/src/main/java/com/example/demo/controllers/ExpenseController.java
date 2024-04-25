@@ -41,9 +41,10 @@ public class ExpenseController {
     }
 
     @GetMapping("/getAllExpenses")
-    public List<Expense> getAllExpenses(ObjectId categoryID)
+    public List<Expense> getAllExpenses(String categoryID)
     {
-        return expenseService.findAllExpensesByCategoryID(categoryID);
+        ObjectId userCategories = new ObjectId(categoryID);
+        return expenseService.findAllExpensesByCategoryID(userCategories);
     }
 
     @DeleteMapping("/deleteExpense")
