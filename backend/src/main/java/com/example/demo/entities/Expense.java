@@ -1,6 +1,6 @@
 package com.example.demo.entities;
 
-import java.sql.Date; 
+import java.util.Date; 
 
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
