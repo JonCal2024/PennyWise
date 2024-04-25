@@ -44,6 +44,6 @@ public class BudgetService {
     }
 
     public List<Budget> findAllBudgetsByUserID(ObjectId userID) {
-        return budgetRepository.findByUserID(userID);
+        return budgetRepository.findByUserId(userID);
     }
 }
