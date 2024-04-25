@@ -25,7 +25,7 @@ public class ExpenseService {
 
     public Expense findByID(ObjectId id)
     {
-        return expenseRepository.findByID(id).orElse(null);
+        return expenseRepository.findById(id).orElse(null);
     }
 
     public void deleteExpense(Expense expense)
