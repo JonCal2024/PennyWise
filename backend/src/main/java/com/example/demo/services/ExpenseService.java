@@ -28,9 +28,9 @@ public class ExpenseService {
         return expenseRepository.findById(id).orElse(null);
     }
 
-    public void deleteExpense(Expense expense)
+    public void deleteExpense(ObjectId id)
     {
-        expenseRepository.deleteById(expense.getID());
+        expenseRepository.deleteById(id);
     }
 
     public List<Expense> findAllExpensesByCategoryID(ObjectId categoryID)

@@ -47,10 +47,10 @@ public class ExpenseController {
         return expenseService.findAllExpensesByCategoryID(userCategories);
     }
 
-    @DeleteMapping("/deleteExpense")
-    public void deleteExpense(@RequestBody Expense expense)
+    @DeleteMapping("/{id}")
+    public void deleteExpense(@PathVariable ObjectId id)
     {
-        expenseService.deleteExpense(expense);
+        expenseService.deleteExpense(id);
     }
 
 }
