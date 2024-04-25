@@ -1,11 +1,14 @@
 package com.example.demo.entities;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "budgets")
 public class Budget {
@@ -13,20 +16,19 @@ public class Budget {
     private ObjectId id;
     private Date reset_deadline;
     private ObjectId user_id;
-    private ArrayList<Category> categories;
 
     /* CONSTRUCTORS */
-    public Budget(ObjectId id, Date reset_deadline, ObjectId user_id, ArrayList<Category> catagories)
-    {
-        this.id = id;
-        setResetDeadline(reset_deadline);
-        this.user_id = user_id;
-        setCatagories(catagories);
-    }
-
     public Budget()
     {
-        this(null, null, null, null);
+        setID(null);
+        setResetDeadline(null);
+        setUserID(null);
+    }
+
+    @JsonCreator
+    public Budget(@JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
+        this.reset_deadline = resetDeadline;
+        this.user_id = userId;
     }
 
     /* GETTERS */
@@ -45,20 +47,18 @@ public class Budget {
         return user_id; 
     }
 
-    public ArrayList<Category> getCategories()
-    {
-        return categories;
-    }
-
     /* SETTERS */
+    public void setID(ObjectId id) {
+        this.id = id;
+    }
     public void setResetDeadline(Date reset_deadline)
     {
         this.reset_deadline = reset_deadline;
     }
 
-    public void setCatagories(ArrayList<Category> categories)
+    public void setUserID(ObjectId user_id)
     {
-        this.categories = new ArrayList<Category>(categories);
+        this.user_id = user_id;
     }
 
 }
