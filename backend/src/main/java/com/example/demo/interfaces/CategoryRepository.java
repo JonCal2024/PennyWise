@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.example.demo.entities.Category;
 
 public interface CategoryRepository extends MongoRepository<Category, ObjectId>{
-    Optional<Category> findByID(ObjectId id);
+    Optional<Category> findById(ObjectId id);
     Optional<Category> findByName(String name);
     List<Category> findByBudgetID(ObjectId budgetID);
     void deleteByName(String name);
