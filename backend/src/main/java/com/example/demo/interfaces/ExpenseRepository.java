@@ -9,6 +9,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.example.demo.entities.Expense;
 
 public interface ExpenseRepository extends MongoRepository<Expense, ObjectId>{
-    Optional<Expense> findByID(ObjectId id);
+    Optional<Expense> findById(ObjectId id);
     List<Expense> findByCategoryID(ObjectId categoryID);
 }
