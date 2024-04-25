@@ -20,7 +20,7 @@ import com.example.demo.services.ExpenseService;
 @RestController 
 @RequestMapping("/expenses")
 public class ExpenseController {
-    private final ExpenseService expenseService;
+    private ExpenseService expenseService;
 
     @Autowired
     public ExpenseController(ExpenseService expenseService)
