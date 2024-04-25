@@ -1,7 +1,6 @@
 package com.example.demo.entities;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
