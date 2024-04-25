@@ -40,9 +40,10 @@ public class BudgetController {
     }
 
     @GetMapping("/getAllBudgets")
-    public List<Budget> getAllBudgets(ObjectId userID)
+    public List<Budget> getAllBudgets(String userID)
     {
-        return budgetService.findAllBudgetsByUserID(userID);
+        ObjectId registeredUser = new ObjectId(userID);
+        return budgetService.findAllBudgetsByUserID(registeredUser);
     }
 
     @PatchMapping("/updateBudget")
