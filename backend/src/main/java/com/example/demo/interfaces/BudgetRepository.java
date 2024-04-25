@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import com.example.demo.entities.Budget;
 
 public interface BudgetRepository extends MongoRepository<Budget, ObjectId>{
-    Optional<Budget> findByID(ObjectId id);
+    Optional<Budget> findById(ObjectId id);
     List<Budget> findByUserID(ObjectId user_id);
     void deleteById(ObjectId id);
 }  
