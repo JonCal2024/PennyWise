@@ -18,21 +18,12 @@ public class CategoryService {
     }
 
     public Category findByID(ObjectId id) {
-        return categoryRepository.findByID(id).orElse(null);
+        return categoryRepository.findById(id).orElse(null);
     }
 
     public void addCategory(Category category) {
-
-        Category existingCategory = categoryRepository.findByName(category.getName()).orElse(null);
-
-        if (existingCategory == null) {
-
-            Category newCategory = new Category(category.getAmountAllocated(),
-                                                category.getName(),
-                                                category.getDescription(),
-                                                category.getBudgetID());
-            categoryRepository.save(newCategory);
-        }
+            categoryRepository.save(category);
+        
     }
 
     public void removeCategory(Category category) {
