@@ -7,6 +7,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Document(collection = "expenses") 
 public class Expense {
     @Id
@@ -17,17 +20,23 @@ public class Expense {
     private ObjectId category_id;
 
     /* CONSTRUCTORS */
-    public Expense(Decimal128 amount, String comment, Date date_entered, ObjectId category_id)
+    
+    public Expense()
+    {
+        setID(null);
+        setAmount(null);
+        setComment("");
+        setDateEntered(null);
+        setCategoryID(null);
+    }
+
+    @JsonCreator
+    public Expense(@JsonProperty("amount") Decimal128 amount, @JsonProperty("comment") String comment, @JsonProperty("date_entered") Date date_entered, @JsonProperty("category_id") ObjectId category_id)
     {
         setAmount(amount);
         setComment(comment);
         setDateEntered(date_entered);
-        setCatagoryID(category_id);
-    }
-    
-    public Expense()
-    {
-        this(null, "", null, null);
+        setCategoryID(category_id);
     }
 
     /* GETTERS */
@@ -57,6 +66,9 @@ public class Expense {
     }
 
     /* SETTERS */
+    public void setID(ObjectId id) {
+        this.id = id;
+    }
     public void setAmount(Decimal128 amount)
     {
         this.amount = amount;
@@ -72,7 +84,7 @@ public class Expense {
         this.date_entered = date_entered;
     }
 
-    public void setCatagoryID(ObjectId category_id)
+    public void setCategoryID(ObjectId category_id)
     {
         this.category_id = category_id;
     }
