@@ -20,6 +20,7 @@ const SignUp = () => {
         axios.post('http://localhost:8080/users/register', userInfo)
         .then(function (response) {
             alert("sign up successfully")
+            console.log(response.data)
         })
         .catch(function (error) {
           console.error('Error:', error);

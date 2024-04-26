@@ -58,44 +58,66 @@ const Category = ({ budget, index, budgets, setBudgets }) => {
   
 
     return (
-        <div className="budget-container" key={index}>
+        <div className="budget-container">
             <h3>{budget.name}</h3>
             <p>Original Budget: ${originalBudget}</p>
             <p>Remaining Budget: ${budget.budgetTotal}</p>
 
             <button onClick={addCategory}>Add Category</button>
             <div className="categories-container">
-                {categories.map((category, categoryIndex) => (
-                    <Expense key={categoryIndex} index={categoryIndex} category={category} categories={categories} setCategories={setCategories} />
+                {categories.map((category, index) => (
+                    <Expense key={index} index={index} category={category} categories={categories} setCategories={setCategories} />
                 ))}
             </div>
         </div>
   );
 }
 
-const  Expense = ({ category, index, categories, setCategories}) => {
-    const [expenses, setExpenses] = useState([]);
+const Expense = ({ category, index, categories, setCategories }) => {
+    const [expenses, setExpenses] = useState(category.expenses || []); // Initialize expenses as an empty array if it's not defined
 
     const addExpense = () => {
         const expenseNameInput = prompt("Enter expense name: ");
         const amount = prompt("Enter the cost of this expense: ");
         const expenseAmountInput = parseFloat(amount);
-        const categoryComment= prompt("Enter a comment for this expense: "); 
-        
-    }
+        const expenseComment = prompt("Enter a comment for this expense: ");
 
-  return (
-    <div className="category-container" key={index}>
-      <h4>{category.name}</h4>
-      <p>Amount allocated: ${category.amount}</p>
-      {expenses.map((expense, expenseIndex) => (
-        <div className="expense-container" key={expenseIndex}>
-          <p>{expense.name} - ${expense.amount}</p>
+        if (expenseNameInput && !isNaN(expenseAmountInput) && expenseAmountInput > 0) {
+
+            if (category.amount - expenseAmountInput < 0) {
+                alert("Adding this expense would exceed the allocated amount for the category and will put the category into the negative.");
+                return;
+            }
+
+            const updatedCategoryAmount = category.amount - expenseAmountInput;
+            const dateAdded = new Date();
+
+            const updatedCategories = categories.map((cat, i) => {
+                if (i === index) {
+                    return { ...cat, amount: updatedCategoryAmount, expenses: [...(cat.expenses || []), { name: expenseNameInput, amount: expenseAmountInput, comment: expenseComment, dateAdded }] }; // Initialize expenses as an empty array if it's not defined
+                }
+                return cat;
+            });
+
+            setCategories(updatedCategories);
+
+            setExpenses([...expenses, { name: expenseNameInput, amount: expenseAmountInput, comment: expenseComment, dateAdded }]);
+        } else {
+            alert("Invalid expense input!");
+        }
+    };
+
+    return (
+        <div className="category-container">
+            <h4>{category.name}</h4>
+            <p>Amount allocated: ${category.amount}</p>
+            {expenses.map((expense, expenseIndex) => (
+                <div className="expense-container" key={expenseIndex}>
+                    <p>{expense.name} - ${expense.amount}</p>
+                </div>
+            ))}
+            <button onClick={addExpense}>Add Expense</button>
         </div>
-      ))}
-      <button onClick={addExpense}>Add Expense</button>
-    </div>
-  );
-}
-
+    );
+};
 export default BudgetManager;

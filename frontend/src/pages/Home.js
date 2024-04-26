@@ -53,7 +53,7 @@ const Home = () => {
                     </label>
                     <label className="credential-label">
                         <input
-                            type="text"
+                            type="password"
                             className="credential-input"
                             name="password"
                             id="password"
