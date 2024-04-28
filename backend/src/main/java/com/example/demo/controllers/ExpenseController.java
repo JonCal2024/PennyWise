@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entities.Budget;
 import com.example.demo.entities.Expense;
 import com.example.demo.services.ExpenseService;
 
@@ -51,6 +53,20 @@ public class ExpenseController {
     public void deleteExpense(@PathVariable ObjectId id)
     {
         expenseService.deleteExpense(id);
+    }
+
+    @GetMapping("/getAllExpenseOid")
+    public List<String> getAllExpenseOid(String categoryID) {
+        ObjectId userCategory = new ObjectId(categoryID);
+        List<Expense> allExpenses = expenseService.findAllExpensesByCategoryID(userCategory);
+
+        ArrayList<String> oid = new ArrayList<String>();
+
+        for (int i = 0; i < allExpenses.size(); i++) {
+            oid.add(allExpenses.get(i).getID().toHexString());
+        }
+
+        return oid;
     }
 
 }
