@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.entities.Budget;
 import com.example.demo.entities.Category;
 import com.example.demo.services.CategoryService;
 
@@ -54,4 +56,18 @@ public class CategoryController {
     {
         return categoryService.updateCategory(category.getID(), category);
     } 
+
+    @GetMapping("/getAllCategoryOid")
+    public List<String> getAllCategoryOid(String budgetID) {
+        ObjectId userBudget = new ObjectId(budgetID);
+        List<Category> allCategories = categoryService.findAllCategoriesByBudgetID(userBudget);
+
+        ArrayList<String> oid = new ArrayList<String>();
+
+        for (int i = 0; i < allCategories.size(); i++) {
+            oid.add(allCategories.get(i).getID().toHexString());
+        }
+
+        return oid;
+    }
 }
