@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -56,5 +57,19 @@ public class BudgetController {
     public void deleteBudget(@PathVariable ObjectId id)
     {
         budgetService.deleteBudget(id);
+    }
+
+    @GetMapping("/getAllBudgetOid")
+    public List<String> getAllBudgetOid(String userID) {
+        ObjectId registeredUser = new ObjectId(userID);
+        List<Budget> allBudgets = budgetService.findAllBudgetsByUserID(registeredUser);
+
+        ArrayList<String> oid = new ArrayList<String>();
+
+        for (int i = 0; i < allBudgets.size(); i++) {
+            oid.add(allBudgets.get(i).getID().toHexString());
+        }
+
+        return oid;
     }
 }
