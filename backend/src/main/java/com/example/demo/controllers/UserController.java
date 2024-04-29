@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.demo.entities.Response;
 import com.example.demo.entities.User;
 import com.example.demo.security.JwtHelper;
 import com.example.demo.services.UserService;
@@ -32,11 +34,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody User requestingUser)
+    public Response loginUser(@RequestBody User requestingUser)
     {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestingUser.getEmail(), requestingUser.getPassword()));
         String token = JwtHelper.generateToken(requestingUser.getEmail());
-        return token;
+
+        return new Response(token, userRepo.findByEmail(requestingUser.getEmail()).getID().toHexString());
     }
 
     @GetMapping("/{id}")
