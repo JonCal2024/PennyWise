@@ -48,6 +48,12 @@ public class UserController {
         retrievedUser.setPassword("");
         return retrievedUser; 
     }
+
+    @GetMapping("/{email}")
+    public String getUserID(@PathVariable String email) {
+        User retrievedUser = userRepo.findByEmail(email);
+        return retrievedUser.getID().toHexString();
+    }
  
     @PatchMapping("/{id}/{password}") 
     public User updateUser(@PathVariable ObjectId id, @RequestBody String password) {
