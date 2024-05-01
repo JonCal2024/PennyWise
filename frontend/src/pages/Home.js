@@ -24,6 +24,8 @@ const Home = () => {
 
         axios.post('http://localhost:8080/users/login', loginInfo)
         .then(function(response){
+            console.log(response.data.user_id)
+            localStorage.setItem('userID', response.data.user_id);
             navigate('/manage');
         }).catch(function(error){
             alert(error)

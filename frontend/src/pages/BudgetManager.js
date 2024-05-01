@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios'
 
 const BudgetManager = () => {
     const [budgets, setBudgets] = useState([]);
@@ -6,8 +7,21 @@ const BudgetManager = () => {
     const addBudget = () => {
       const budgetName = prompt("Enter budget name: ");
       const budgetTotal = prompt("Enter the amount for the budget: ");
+      const resetDeadline = prompt("Enter reset deadline (YYYY-MM-DD): ");
+      const storedUserID = localStorage.getItem('userID');
+      
       if (budgetName && budgetTotal) {
-          setBudgets([...budgets, { name: budgetName, budgetTotal: parseFloat(budgetTotal), categories: []}]);
+        const budgetInfo = {
+            reset_deadline: resetDeadline,
+            user_id: storedUserID
+        };
+        axios.post('http://localhost:8080/budgets/addBudget', budgetInfo)
+        .then(function(response){
+            setBudgets([...budgets, { name: budgetName, budgetTotal: parseFloat(budgetTotal), categories: []}]);
+            console.log(budgetInfo)
+        }).catch(function(error){
+            alert(error)
+        })
       }
   };
 

@@ -2,8 +2,8 @@ package com.example.demo.entities;
 
 public class Response {
 
-    private String token;  
-    private String user_id;
+    public String token;  
+    public String user_id;
 
     /* CONSTRUCTORS */
     public Response() { 

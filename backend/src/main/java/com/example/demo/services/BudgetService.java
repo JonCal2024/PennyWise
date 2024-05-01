@@ -19,8 +19,10 @@ public class BudgetService {
 
     //Do budgets need names? If so, do we need to check if a named budget already exists?
     public Budget addBudget(Budget budget)
-    {
-        return budgetRepository.save(budget);
+    {   
+        Budget bud = new Budget(budget.getResetDeadline(), 
+                                budget.getUserID());
+        return budgetRepository.save(bud);
     }
 
     public Budget findByID(ObjectId id)
