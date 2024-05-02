@@ -18,29 +18,35 @@ public class CategoryService {
     }
 
     public Category findByID(ObjectId id) {
-        return categoryRepository.findByID(id).orElse(null);
+        return categoryRepository.findById(id).orElse(null);
     }
 
     public void addCategory(Category category) {
-
-        Category existingCategory = categoryRepository.findByName(category.getName()).orElse(null);
-
-        if (existingCategory == null) {
-
-            Category newCategory = new Category(category.getAmountAllocated(),
-                                                category.getName(),
-                                                category.getDescription(),
-                                                category.getBudgetID());
-            categoryRepository.save(newCategory);
-        }
+            categoryRepository.save(category);
+        
     }
 
-    public void removeCategory(Category category) {
-        categoryRepository.deleteByName(category.getName());
+    public void removeCategory(ObjectId id) {
+        categoryRepository.deleteById(id);
+    }
+
+    public Category getCategoryById(ObjectId id) {
+        return categoryRepository.findById(id).orElse(null);
     }
 
     public List<Category> findAllCategoriesByBudgetID(ObjectId budgetID) {
-        return categoryRepository.findByBudgetID(budgetID);
+        return categoryRepository.findByBudgetId(budgetID);
+    }
+
+    public Category updateCategory(ObjectId id, Category newCategory) {
+
+        Category category = categoryRepository.findById(id).orElse(null);
+
+        if(category != null) {
+            return categoryRepository.save(newCategory);
+        }
+        return null;
+        
     }
 
 }

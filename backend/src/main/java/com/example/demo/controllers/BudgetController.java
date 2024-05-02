@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -12,14 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.example.demo.entities.Budget;
 import com.example.demo.services.BudgetService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/budgets")
 public class BudgetController {
-    private BudgetService budgetService;
+    private final BudgetService budgetService;
 
     @Autowired
     public BudgetController(BudgetService budgetService)
@@ -28,9 +32,10 @@ public class BudgetController {
     }
 
     @PostMapping("/addBudget")
-    public void addBudget(@RequestBody Budget budget)
+    public String addBudget(@RequestBody Budget budget)
     {
         budgetService.addBudget(budget);
+        return budgetService.findByName(budget.getName()).getID().toHexString();
     }
 
     @GetMapping("/{id}")
@@ -47,7 +52,7 @@ public class BudgetController {
     }
 
     @PatchMapping("/updateBudget")
-    public Budget updateBudget(Budget budget)
+    public Budget updateBudget(@RequestBody Budget budget)
     {
         return budgetService.updateBudget(budget.getID(), budget);
     } 
@@ -56,5 +61,19 @@ public class BudgetController {
     public void deleteBudget(@PathVariable ObjectId id)
     {
         budgetService.deleteBudget(id);
+    }
+
+    @GetMapping("/getAllBudgetOid")
+    public List<String> getAllBudgetOid(String userID) {
+        ObjectId registeredUser = new ObjectId(userID);
+        List<Budget> allBudgets = budgetService.findAllBudgetsByUserID(registeredUser);
+
+        ArrayList<String> oid = new ArrayList<String>();
+
+        for (int i = 0; i < allBudgets.size(); i++) {
+            oid.add(allBudgets.get(i).getID().toHexString());
+        }
+
+        return oid;
     }
 }

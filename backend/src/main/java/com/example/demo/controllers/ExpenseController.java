@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -20,7 +21,7 @@ import com.example.demo.services.ExpenseService;
 @RestController 
 @RequestMapping("/expenses")
 public class ExpenseController {
-    private final ExpenseService expenseService;
+    private ExpenseService expenseService;
 
     @Autowired
     public ExpenseController(ExpenseService expenseService)
@@ -41,15 +42,30 @@ public class ExpenseController {
     }
 
     @GetMapping("/getAllExpenses")
-    public List<Expense> getAllExpenses(ObjectId categoryID)
+    public List<Expense> getAllExpenses(String categoryID)
     {
-        return expenseService.findAllExpensesByCategoryID(categoryID);
+        ObjectId userCategories = new ObjectId(categoryID);
+        return expenseService.findAllExpensesByCategoryID(userCategories);
     }
 
-    @DeleteMapping("/deleteExpense")
-    public void deleteExpense(@RequestBody Expense expense)
+    @DeleteMapping("/{id}")
+    public void deleteExpense(@PathVariable ObjectId id)
     {
-        expenseService.deleteExpense(expense);
+        expenseService.deleteExpense(id);
+    }
+
+    @GetMapping("/getAllExpenseOid")
+    public List<String> getAllExpenseOid(String categoryID) {
+        ObjectId userCategory = new ObjectId(categoryID);
+        List<Expense> allExpenses = expenseService.findAllExpensesByCategoryID(userCategory);
+
+        ArrayList<String> oid = new ArrayList<String>();
+
+        for (int i = 0; i < allExpenses.size(); i++) {
+            oid.add(allExpenses.get(i).getID().toHexString());
+        }
+
+        return oid;
     }
 
 }

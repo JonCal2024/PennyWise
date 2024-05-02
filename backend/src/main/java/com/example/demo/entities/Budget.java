@@ -1,7 +1,6 @@
 package com.example.demo.entities;
 
 import java.util.Date;
-import java.util.ArrayList;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -16,6 +15,7 @@ public class Budget {
     private ObjectId id;
     private Date reset_deadline;
     private ObjectId user_id;
+    private String name;
 
     /* CONSTRUCTORS */
     public Budget()
@@ -23,12 +23,14 @@ public class Budget {
         setID(null);
         setResetDeadline(null);
         setUserID(null);
+        setName("");
     }
 
     @JsonCreator
-    public Budget(@JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
+    public Budget( String name, @JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
         this.reset_deadline = resetDeadline;
         this.user_id = userId;
+        this.name = name;
     }
 
     /* GETTERS */
@@ -47,6 +49,11 @@ public class Budget {
         return user_id; 
     }
 
+    public String getName()
+    {
+        return name; 
+    }
+
     /* SETTERS */
     public void setID(ObjectId id) {
         this.id = id;
@@ -59,6 +66,11 @@ public class Budget {
     public void setUserID(ObjectId user_id)
     {
         this.user_id = user_id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
 }

@@ -7,9 +7,16 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [userName, setUserName] = useState(""); 
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        if (password !== confirmPassword) {
+            setPasswordError("Passwords do not match");
+            return;
+        }
 
         const userInfo = {
             email : email,
@@ -20,6 +27,7 @@ const SignUp = () => {
         axios.post('http://localhost:8080/users/register', userInfo)
         .then(function (response) {
             alert("sign up successfully")
+            console.log(response.data)
         })
         .catch(function (error) {
           console.error('Error:', error);
@@ -60,6 +68,19 @@ const SignUp = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </label>
+                    <label className="credential-label">
+                        <input
+                            type="password"
+                            className="credential-input"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => {
+                                setConfirmPassword(e.target.value);
+                                setPasswordError("");
+                            }}
+                        />
+                    </label>
+                    {passwordError && <p className="error-message">{passwordError}</p>}
                     <button type="submit" className="submit-button b">Sign Up</button>
                     <p>
                         Have an account? 

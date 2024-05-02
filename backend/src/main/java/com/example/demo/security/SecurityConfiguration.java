@@ -39,6 +39,7 @@ public class SecurityConfiguration {
                 // Public endpoints
                 .requestMatchers(HttpMethod.POST, "users/register").permitAll()
                 .requestMatchers(HttpMethod.POST, "users/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "budgets/addBudget").permitAll()
                 // Private endpoints
                 .anyRequest().authenticated()
             )

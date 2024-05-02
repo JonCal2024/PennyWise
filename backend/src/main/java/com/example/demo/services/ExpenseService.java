@@ -25,16 +25,21 @@ public class ExpenseService {
 
     public Expense findByID(ObjectId id)
     {
-        return expenseRepository.findByID(id).orElse(null);
+        return expenseRepository.findById(id).orElse(null);
     }
 
-    public void deleteExpense(Expense expense)
+    public void deleteExpense(ObjectId id)
     {
-        expenseRepository.deleteById(expense.getID());
+        expenseRepository.deleteById(id);
     }
 
     public List<Expense> findAllExpensesByCategoryID(ObjectId categoryID)
     {
+<<<<<<< HEAD
         return expenseRepository.findByCategoryID(categoryID);
     } 
+=======
+        return expenseRepository.findByCategoryId(categoryID);
+    }
+>>>>>>> 0547ffec7d9f6378e6fc860df881bdfada415740
 }

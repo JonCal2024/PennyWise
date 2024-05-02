@@ -5,6 +5,9 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Document(collection = "categories")
 public class Category {
     @Id
@@ -18,14 +21,15 @@ public class Category {
 
     public Category()
     {
-        setID(id);
-        setAmountAllocated(amount_allocated);
-        setName(name);
-        setDescription(description);
-        setBudgetID(budget_id);
+        setID(null);
+        setAmountAllocated(null);
+        setName("");
+        setDescription("");
+        setBudgetID(null);
     }
 
-    public Category(Decimal128 amount_allocated, String name, String description, ObjectId budget_id)
+    @JsonCreator
+    public Category(@JsonProperty("amount_allocated") Decimal128 amount_allocated, @JsonProperty("name") String name, @JsonProperty("description") String description, @JsonProperty("budget_id") ObjectId budget_id)
     {
         setAmountAllocated(amount_allocated);
         setName(name);
