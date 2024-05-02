@@ -13,12 +13,13 @@ const BudgetManager = () => {
       if (budgetName && budgetTotal) {
         const budgetInfo = {
             reset_deadline: resetDeadline,
-            user_id: storedUserID
+            user_id: storedUserID,
+            name: budgetName
         };
         axios.post('http://localhost:8080/budgets/addBudget', budgetInfo)
         .then(function(response){
             setBudgets([...budgets, { name: budgetName, budgetTotal: parseFloat(budgetTotal), categories: []}]);
-            console.log(budgetInfo)
+            console.log(response.data)
         }).catch(function(error){
             alert(error)
         })
