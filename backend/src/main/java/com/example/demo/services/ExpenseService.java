@@ -36,5 +36,5 @@ public class ExpenseService {
     public List<Expense> findAllExpensesByCategoryID(ObjectId categoryID)
     {
         return expenseRepository.findByCategoryID(categoryID);
-    }
+    } 
 }
