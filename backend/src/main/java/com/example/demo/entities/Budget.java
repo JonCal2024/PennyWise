@@ -11,8 +11,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "budgets")
 public class Budget {
+    enum Period
+    {
+        NONE,
+        DAILY,
+        WEEKLY,
+        MONTHLY,
+        YEARLY
+    }
+    
     @Id
     private ObjectId id;
+    private Period reset_period_type;
     private Date reset_deadline;
     private ObjectId user_id;
     private String name;
@@ -21,22 +31,29 @@ public class Budget {
     public Budget()
     {
         setID(null);
+        setResetPeriodType(Period.NONE);
         setResetDeadline(null);
         setUserID(null);
         setName("");
     }
 
     @JsonCreator
-    public Budget( String name, @JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
-        this.reset_deadline = resetDeadline;
-        this.user_id = userId;
-        this.name = name;
+    public Budget( String name, @JsonProperty("reset_period_type") Period resetPeriodType, @JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
+        setResetPeriodType(resetPeriodType);
+        setResetDeadline(resetDeadline);
+        setUserID(userId);
+        setName(name);
     }
 
     /* GETTERS */
     public ObjectId getID()
     {
         return id;
+    }
+
+    public Period getResetPeriodType()
+    {
+        return reset_period_type;
     }
 
     public Date getResetDeadline()
@@ -58,6 +75,12 @@ public class Budget {
     public void setID(ObjectId id) {
         this.id = id;
     }
+
+    public void setResetPeriodType(Period reset_period_type)
+    {
+        this.reset_period_type = reset_period_type;
+    }
+
     public void setResetDeadline(Date reset_deadline)
     {
         this.reset_deadline = reset_deadline;
