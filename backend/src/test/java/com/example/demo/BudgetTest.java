@@ -9,7 +9,7 @@ import com.example.demo.entities.Budget;
 public class BudgetTest {
     private Budget budget = new Budget();
 
-    @Test 
+    @Test  
     public void idCheck()
     {
         assert budget.setID(null) == false: "Budget ID cannot be null";
@@ -46,7 +46,7 @@ public class BudgetTest {
         assert budget.setName(null) == false : "Budget name cannot be null";
         assert budget.setName("") == false : "Budget name cannot be empty";
         assert budget.setName("  ") == false: "Budget name cannot be blank";
-        assert budget.setName("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        assert budget.setName("a".repeat(101))
                                         == false : "Budget name cannot exceed 100 characters";
         System.out.println("Name check passed!");
     }

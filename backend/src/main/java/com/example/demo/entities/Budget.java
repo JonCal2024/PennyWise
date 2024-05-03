@@ -117,7 +117,7 @@ public class Budget {
 
     public boolean setName(String name)
     {
-        if(Objects.isNull(name) || name.isEmpty() || name.isBlank() || name.length() > 100)
+        if(Objects.isNull(name) || name.isBlank() || name.length() > 100)
         {
             return false;
         }

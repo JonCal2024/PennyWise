@@ -1,5 +1,7 @@
 package com.example.demo.entities;
 
+import java.util.Objects;
+
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -64,28 +66,53 @@ public class Category {
     }
 
     /* SETTERS */
-    public void setID(ObjectId id) {
+    public boolean setID(ObjectId id) {
+        if(Objects.isNull(id))
+        {
+            return false;
+        }
         this.id = id;
+        return true;
     }
 
-    public void setAmountAllocated(Decimal128 amount_allocated)
+    public boolean setAmountAllocated(Decimal128 amount_allocated)
     {
+        if(Objects.isNull(amount_allocated) || amount_allocated.isNegative() || amount_allocated.isInfinite() || amount_allocated.equals(Decimal128.NaN))
+        {
+            return false;
+        }
         this.amount_allocated = amount_allocated;
+        return true;
     }
 
-    public void setName(String name)
+    public boolean setName(String name)
     {
+        if(Objects.isNull(name) || name.isBlank() || name.length() > 100)
+        {
+            return false;
+        }
         this.name = name;
+        return true;
     }
 
-    public void setDescription(String description)
+    public boolean setDescription(String description)
     {
+        if(Objects.isNull(description) || (description.isBlank() && !description.isEmpty()) || description.length() > 500)
+        {
+            return false;
+        }
         this.description = description;
+        return true;
     }
 
-    public void setBudgetID(ObjectId budget_id)
+    public boolean setBudgetID(ObjectId budget_id)
     {
+        if(Objects.isNull(budget_id))
+        {
+            return false;
+        }
         this.budget_id = budget_id;
+        return true;
     }
 
 }
