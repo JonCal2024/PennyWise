@@ -17,7 +17,9 @@ public class Budget {
         DAILY,
         WEEKLY,
         MONTHLY,
-        YEARLY
+        QUARTERLY,
+        BIANNUAL,
+        ANNUAL
     }
     
     @Id
