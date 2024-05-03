@@ -35,11 +35,6 @@ public class ExpenseService {
 
     public List<Expense> findAllExpensesByCategoryID(ObjectId categoryID)
     {
-<<<<<<< HEAD
-        return expenseRepository.findByCategoryID(categoryID);
-    } 
-=======
         return expenseRepository.findByCategoryId(categoryID);
     }
->>>>>>> 0547ffec7d9f6378e6fc860df881bdfada415740
 }

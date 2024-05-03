@@ -21,6 +21,7 @@ public class BudgetService {
     public Budget addBudget(Budget budget)
     {   
         Budget bud = new Budget (budget.getName(),
+                                budget.getResetPeriodType(),
                                 budget.getResetDeadline(), 
                                 budget.getUserID());
         return budgetRepository.save(bud);
