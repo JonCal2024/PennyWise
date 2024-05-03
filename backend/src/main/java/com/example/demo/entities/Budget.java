@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -25,7 +27,7 @@ public class Budget {
     @Id
     private ObjectId id;
     private Period reset_period_type;
-    private Date reset_deadline;
+    private LocalDate reset_deadline;
     private ObjectId user_id;
     private String name;
 
@@ -40,7 +42,7 @@ public class Budget {
     }
 
     @JsonCreator
-    public Budget( String name, @JsonProperty("reset_period_type") Period resetPeriodType, @JsonProperty("reset_deadline") Date resetDeadline, @JsonProperty("user_id") ObjectId userId) {
+    public Budget( String name, @JsonProperty("reset_period_type") Period resetPeriodType, @JsonProperty("reset_deadline") LocalDate resetDeadline, @JsonProperty("user_id") ObjectId userId) {
         setResetPeriodType(resetPeriodType);
         setResetDeadline(resetDeadline);
         setUserID(userId);
@@ -48,54 +50,79 @@ public class Budget {
     }
 
     /* GETTERS */
-    public ObjectId getID()
+    public final ObjectId getID()
     {
         return id;
     }
 
-    public Period getResetPeriodType()
+    public final Period getResetPeriodType()
     {
         return reset_period_type;
     }
 
-    public Date getResetDeadline()
+    public final LocalDate getResetDeadline()
     {
         return reset_deadline;
     }
 
-    public ObjectId getUserID()
+    public final ObjectId getUserID()
     {
         return user_id; 
     }
 
-    public String getName()
+    public final String getName()
     {
         return name; 
     }
 
     /* SETTERS */
-    public void setID(ObjectId id) {
+    public boolean setID(ObjectId id) {
+        if(Objects.isNull(id))
+        {
+            return false;
+        }
         this.id = id;
+        return true;
     }
 
-    public void setResetPeriodType(Period reset_period_type)
+    public boolean setResetPeriodType(Period reset_period_type)
     {
+        if(Objects.isNull(reset_period_type))
+        {
+            return false;
+        }
         this.reset_period_type = reset_period_type;
+        return true;
     }
 
-    public void setResetDeadline(Date reset_deadline)
+    public boolean setResetDeadline(LocalDate reset_deadline)
     {
+        if(Objects.isNull(reset_deadline) || reset_deadline.isBefore(LocalDate.now()) || reset_deadline.isAfter(LocalDate.now().plusYears(1).plusDays(1)))
+        {
+            return false;
+        }
         this.reset_deadline = reset_deadline;
+        return true;
     }
 
-    public void setUserID(ObjectId user_id)
+    public boolean setUserID(ObjectId user_id)
     {
+        if(Objects.isNull(user_id))
+        {
+            return false;
+        }
         this.user_id = user_id;
+        return true;
     }
 
-    public void setName(String name)
+    public boolean setName(String name)
     {
+        if(Objects.isNull(name) || name.isEmpty() || name.isBlank() || name.length() > 100)
+        {
+            return false;
+        }
         this.name = name;
+        return true;
     }
 
 }
