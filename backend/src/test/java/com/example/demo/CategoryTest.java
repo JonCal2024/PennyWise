@@ -15,7 +15,7 @@ public class CategoryTest {
         System.out.println("ID check passed!");
     }
 
-    @Test
+    @Test 
     public void amountAllocatedCheck()
     {
         assert category.setAmountAllocated(null) == false : "Category amount allocated cannot be null";

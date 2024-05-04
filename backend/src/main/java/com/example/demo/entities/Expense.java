@@ -1,6 +1,8 @@
 package com.example.demo.entities;
 
-import java.util.Date; 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.Objects;
 
 import org.bson.types.Decimal128;
 import org.bson.types.ObjectId;
@@ -16,7 +18,7 @@ public class Expense {
     private ObjectId id;
     private Decimal128 amount;
     private String comment;
-    private Date date_entered;
+    private LocalDate date_entered;
     private ObjectId category_id;
 
     /* CONSTRUCTORS */
@@ -31,7 +33,7 @@ public class Expense {
     }
 
     @JsonCreator
-    public Expense(@JsonProperty("amount") Decimal128 amount, @JsonProperty("comment") String comment, @JsonProperty("date_entered") Date date_entered, @JsonProperty("category_id") ObjectId category_id)
+    public Expense(@JsonProperty("amount") Decimal128 amount, @JsonProperty("comment") String comment, @JsonProperty("date_entered") LocalDate date_entered, @JsonProperty("category_id") ObjectId category_id)
     {
         setAmount(amount);
         setComment(comment);
@@ -55,7 +57,7 @@ public class Expense {
         return comment;
     }
 
-    public Date getDateEntered()
+    public LocalDate getDateEntered()
     {
         return date_entered;
     }
@@ -66,27 +68,52 @@ public class Expense {
     }
 
     /* SETTERS */
-    public void setID(ObjectId id) {
+    public boolean setID(ObjectId id) {
+        if(Objects.isNull(id))
+        {
+            return false;
+        }
         this.id = id;
+        return true;
     }
-    public void setAmount(Decimal128 amount)
+    public boolean setAmount(Decimal128 amount)
     {
+        if(Objects.isNull(amount) || amount.isNegative() || amount.isInfinite() || amount.equals(Decimal128.NaN))
+        {
+            return false;
+        }
         this.amount = amount;
+        return true;
     }
 
-    public void setComment(String comment)
+    public boolean setComment(String comment)
     {
+        if(Objects.isNull(comment) || (comment.isBlank() && !comment.isEmpty()) || comment.length() > 500)
+        {
+            return false;
+        }
         this.comment = comment;
+        return true;
     }
 
-    public void setDateEntered(Date date_entered)
+    public boolean setDateEntered(LocalDate date_entered)
     {
+        if(Objects.isNull(date_entered) || date_entered.isBefore(LocalDate.now()) || date_entered.isAfter(LocalDate.now()))
+        {
+            return false;
+        }
         this.date_entered = date_entered;
+        return true;
     }
 
-    public void setCategoryID(ObjectId category_id)
+    public boolean setCategoryID(ObjectId category_id)
     {
+        if(Objects.isNull(category_id))
+        {
+            return false;
+        }
         this.category_id = category_id;
+        return true;
     }
 
 }
