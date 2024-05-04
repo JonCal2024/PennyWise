@@ -1,5 +1,9 @@
 package com.example.demo.entities;
  
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.bson.types.ObjectId; 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -51,24 +55,62 @@ public class User {
     }
 
     /* SETTERS */
-    public void setID(ObjectId id)
+    public boolean setID(ObjectId id)
     {
+        if(Objects.isNull(id))
+        {
+            return false;
+        }
         this.id = id;
+        return true;
     }
 
-    public void setUsername(String username)
+    public boolean setUsername(String username)
     {
+        if(Objects.isNull(username) || username.isBlank())
+        {
+            return false;
+        }
         this.username = username;
+        return true;
     }
 
-    public void setPassword(String password)
+    public boolean setPassword(String password)
     {
+        if(Objects.isNull(password))
+        {
+            return false;
+        }
+
+        String regex = "^(?=.*[a-z])(?=."
+                       + "*[A-Z])(?=.*\\d)"
+                       + "(?=.*[-+_!@#$%^&*., ?]).+$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(password);
+        if(password.length() < 8 || !m.matches())
+        {
+            return false;
+        }
         this.password = password;
+        return true;
     }
 
-    public void setEmail(String email)
+    public boolean setEmail(String email)
     {
+        if(Objects.isNull(email))
+        {
+            return false;
+        }
+
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(email);
+        if(!m.matches())
+        {
+            return false;
+        }
         this.email = email;
+        return true;
     }
 
 }
