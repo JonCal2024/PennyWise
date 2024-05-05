@@ -39,7 +39,7 @@ public class UserTest {
     public void emailCheck()
     {
         assert user.setEmail(null) == false : "User email cannot be null";
-        assert user.setEmail("@.com") == false : "User email must be an email";
+        assert user.setEmail("a@.com") == false : "User email must be an email";
         assert user.setUsername("student@csulb.edu") == true : "User email must be formatted correctly";
         System.out.println("Email check successful");
     }

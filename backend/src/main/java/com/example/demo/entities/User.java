@@ -61,7 +61,7 @@ public class User {
         {
             return false;
         }
-        this.id = id;
+        this.id = id; 
         return true;
     }
 
@@ -100,9 +100,7 @@ public class User {
             return false;
         }
 
-        String regex = "^(?=.*[a-z])(?=."
-                       + "*[A-Z])(?=.*\\d)"
-                       + "(?=.*[-+_!@#$%^&*., ?]).+$";
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(email);
         if(!m.matches())
