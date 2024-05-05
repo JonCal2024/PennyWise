@@ -1,13 +1,13 @@
 package com.example.demo;
 import org.junit.jupiter.api.Test;
 
-import com.example.demo.entities.User;
+import com.example.demo.entities.User; 
 
 public class UserTest {
-    private User user = new User();
+    private User user = new User(); 
 
     @Test
-    public void idCheck()
+    public void idCheck() 
     {
         assert user.setID(null) == false : "User ID cannot be null";
         System.out.println("ID check successful");
@@ -35,7 +35,7 @@ public class UserTest {
         System.out.println("Password check successful");
     }
 
-    @Test
+    @Test 
     public void emailCheck()
     {
         assert user.setEmail(null) == false : "User email cannot be null";
