@@ -34,8 +34,8 @@ public class BudgetController {
     @PostMapping("/addBudget")
     public String addBudget(@RequestBody Budget budget)
     {
-        budgetService.addBudget(budget);
-        return budgetService.findByName(budget.getName()).getID().toHexString();
+        Budget newBudget = budgetService.addBudget(budget);
+        return budgetService.findByID(newBudget.getID()).getID().toHexString();
     }
 
     @GetMapping("/{id}")

@@ -37,9 +37,24 @@ public class SecurityConfiguration {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(authorize -> authorize
                 // Public endpoints
-                .requestMatchers(HttpMethod.POST, "users/register").permitAll()
-                .requestMatchers(HttpMethod.POST, "users/login").permitAll()
-                .requestMatchers(HttpMethod.POST, "budgets/addBudget").permitAll()
+                
+                .requestMatchers(HttpMethod.POST, "/users/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/users/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/budgets/addBudget").permitAll()
+                .requestMatchers(HttpMethod.GET, "/budgets/getAllBudgets").permitAll()
+                .requestMatchers(HttpMethod.GET, "/budgets/getAllBudgetOid").permitAll()
+                .requestMatchers(HttpMethod.GET, "/budgets/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/budgets/{id}").permitAll() 
+                .requestMatchers(HttpMethod.POST, "/categories/addCategory").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categories/getAllCategories").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categories/getAllCategoryOid").permitAll()
+                .requestMatchers(HttpMethod.GET, "/categories/{id}").permitAll()
+                .requestMatchers(HttpMethod.DELETE, "/categories/{id}").permitAll()    
+                .requestMatchers(HttpMethod.POST, "/expenses/addExpense").permitAll()
+                .requestMatchers(HttpMethod.GET, "/expenses/getAllExpenses").permitAll()
+                .requestMatchers(HttpMethod.GET, "/expenses/getAllExpenseOid").permitAll()
+                .requestMatchers(HttpMethod.GET, "/expenses/{id}").permitAll()      
+                .requestMatchers(HttpMethod.DELETE, "/expenses/{id}").permitAll()       
                 // Private endpoints
                 .anyRequest().authenticated()
             )

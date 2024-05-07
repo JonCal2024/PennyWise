@@ -13,4 +13,5 @@ public interface ExpenseRepository extends MongoRepository<Expense, ObjectId>{
     Optional<Expense> findById(ObjectId id);
     @Query("{ 'category_id' : ?0 }")
     List<Expense> findByCategoryId(ObjectId categoryID);
+    void deleteById(ObjectId id);
 }

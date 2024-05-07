@@ -2,6 +2,8 @@ package com.example.demo.services;
 
 import java.util.List;
 
+import org.bson.types.Decimal128;
+import java.time.LocalDate;
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,13 @@ public class ExpenseService {
         this.expenseRepository = expenseRepository;
     }
 
-    public void addExpense(Expense expense)
+    public Expense addExpense(Expense expense)
     {
-        expenseRepository.save(expense);
+        Expense newExpense = new Expense (expense.getAmount(),
+                                          expense.getComment(),
+                                          expense.getDateEntered(), 
+                                          expense.getCategoryID());
+        return expenseRepository.save(newExpense);
     }
 
     public Expense findByID(ObjectId id)

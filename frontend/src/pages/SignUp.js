@@ -48,6 +48,7 @@ const SignUp = () => {
                             placeholder="Email"
                             value ={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required
                         />
                     </label>
                     <label className="credential-label">
@@ -57,6 +58,7 @@ const SignUp = () => {
                             placeholder="Username"
                             value ={userName}
                             onChange={(e) => setUserName(e.target.value)}
+                            required
                         />
                     </label>
                     <label className="credential-label">
@@ -66,6 +68,7 @@ const SignUp = () => {
                             placeholder="Password"
                             value ={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            required
                         />
                     </label>
                     <label className="credential-label">
@@ -78,6 +81,7 @@ const SignUp = () => {
                                 setConfirmPassword(e.target.value);
                                 setPasswordError("");
                             }}
+                            required
                         />
                     </label>
                     {passwordError && <p className="error-message">{passwordError}</p>}

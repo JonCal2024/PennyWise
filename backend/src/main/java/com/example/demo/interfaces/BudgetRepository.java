@@ -11,7 +11,6 @@ import com.example.demo.entities.Budget;
 
 public interface BudgetRepository extends MongoRepository<Budget, ObjectId>{
     Optional<Budget> findById(ObjectId id);
-    Optional<Budget> findByName(String name);
     @Query("{ 'user_id' : ?0 }")
     List<Budget> findByUserId(ObjectId user_id);
     void deleteById(ObjectId id);
