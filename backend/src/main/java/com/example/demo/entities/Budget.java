@@ -30,6 +30,7 @@ public class Budget {
     private ObjectId user_id;
     private String name;
 
+
     /* CONSTRUCTORS */
     public Budget()
     {

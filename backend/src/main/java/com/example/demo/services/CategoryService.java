@@ -21,8 +21,14 @@ public class CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
 
-    public void addCategory(Category category) {
-            categoryRepository.save(category);
+    public Category addCategory(Category category) {
+
+        Category newCategory = new Category (category.getAmountAllocated(),
+                                             category.getName(), 
+                                             category.getDescription(), 
+                                             category.getBudgetID());
+
+        return categoryRepository.save(newCategory);
         
     }
 

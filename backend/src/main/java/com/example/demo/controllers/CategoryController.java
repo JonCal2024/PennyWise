@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.Category;
 import com.example.demo.services.CategoryService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
@@ -28,9 +30,9 @@ public class CategoryController {
     }
 
     @PostMapping("/addCategory")
-    public void addCategory(@RequestBody Category category) {
-        categoryService.addCategory(category);
-
+    public String addCategory(@RequestBody Category category) {
+        Category newCategory = categoryService.addCategory(category);
+        return categoryService.findByID(newCategory.getID()).getID().toHexString();
     }
 
     @DeleteMapping("/{id}")

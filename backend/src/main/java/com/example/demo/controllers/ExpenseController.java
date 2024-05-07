@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.example.demo.entities.Expense;
 import com.example.demo.services.ExpenseService;
 
 //MAY ADD getByDate(Date), getAmountsLessThan(Decimal), getAmountsGreaterThan(Decimal), etc. IF NEEDED
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController 
 @RequestMapping("/expenses")
 public class ExpenseController {
@@ -30,9 +32,10 @@ public class ExpenseController {
     }
 
     @PostMapping("/addExpense")
-    public void addExpense(@RequestBody Expense expense)
+    public String addExpense(@RequestBody Expense expense)
     {
-        expenseService.addExpense(expense);
+        Expense newExpense = expenseService.addExpense(expense);
+        return expenseService.findByID(newExpense.getID()).getID().toHexString();
     }
 
     @GetMapping("/{id}")
