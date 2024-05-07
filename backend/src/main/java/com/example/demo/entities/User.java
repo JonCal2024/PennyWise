@@ -61,7 +61,7 @@ public class User {
         {
             return false;
         }
-        this.id = id;
+        this.id = id; 
         return true;
     }
 
@@ -82,9 +82,7 @@ public class User {
             return false;
         }
 
-        String regex = "^(?=.*[a-z])(?=."
-                       + "*[A-Z])(?=.*\\d)"
-                       + "(?=.*[-+_!@#$%^&*., ?]).+$";
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(password);
         if(password.length() < 8 || !m.matches())
@@ -102,7 +100,7 @@ public class User {
             return false;
         }
 
-        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
         Matcher m = p.matcher(email);
         if(!m.matches())
