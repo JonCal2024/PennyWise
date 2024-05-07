@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const SignUp = () => {
 
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [userName, setUserName] = useState(""); 
     const [password, setPassword] = useState("");
@@ -26,8 +27,8 @@ const SignUp = () => {
     
         axios.post('http://localhost:8080/users/register', userInfo)
         .then(function (response) {
-            alert("sign up successfully")
-            console.log(response.data)
+            alert("Sign Up Successfully")
+            navigate('/');
         })
         .catch(function (error) {
           console.error('Error:', error);
