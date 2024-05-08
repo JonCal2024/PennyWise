@@ -44,7 +44,7 @@ const ExpenseForm = ({ onSubmit }) => {
                                 <input type="text" value={comment} onChange={(e) => setComment(e.target.value)} required />
                             </label>
                             <label>
-                                Amount of expense:
+                                Amount of Expense:
                                 <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
                             </label>
                             <button type="submit" disabled={!isFormValid} className="add-button" id="add-exp-button">Add</button>
