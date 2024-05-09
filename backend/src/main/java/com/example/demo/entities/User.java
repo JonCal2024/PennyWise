@@ -82,7 +82,9 @@ public class User {
             return false;
         }
 
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String regex = "^(?=.*[a-z])(?=."
+                        + "*[A-Z])(?=.*\\d)"	
+                        + "(?=.*[-+_!@#$%^&*., ?]).+$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(password);
         if(password.length() < 8 || !m.matches())

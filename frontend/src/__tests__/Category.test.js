@@ -9,14 +9,13 @@ jest.mock('axios');
 describe('Category Component', () => {
     it('renders categories correctly', async () => {
         const categoryData = [
-            { categoryID: '1', name: 'Category 1', description: 'Description 1', amountAllocated: 100 },
-            { categoryID: '2', name: 'Category 2', description: 'Description 2', amountAllocated: 200 }
+            { categoryID: '1', name: 'Category 1', description: 'Description 1', amountAllocated: 100 }
         ];
 
         axios.get.mockResolvedValueOnce({ data: categoryData });
 
         try {
-            const response = await axios.get(`http://localhost:8080/categories/${categoryID}`);
+            const response = await axios.get(`http://localhost:8080/categories/${data.categoryID}`);
         } catch (error) {
             console.error('Error loading categories:', error);
         }

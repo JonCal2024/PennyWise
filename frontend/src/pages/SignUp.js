@@ -28,7 +28,6 @@ const SignUp = () => {
         axios.post('http://localhost:8080/users/register', userInfo)
         .then(function (response) {
             alert("Sign Up Successfully")
-            navigate('/');
         })
         .catch(function (error) {
           console.error('Error:', error);
