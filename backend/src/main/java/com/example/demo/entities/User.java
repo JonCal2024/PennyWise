@@ -57,58 +57,24 @@ public class User {
     /* SETTERS */
     public boolean setID(ObjectId id)
     {
-        if(Objects.isNull(id))
-        {
-            return false;
-        }
         this.id = id; 
         return true;
     }
 
     public boolean setUsername(String username)
     {
-        if(Objects.isNull(username) || username.isBlank())
-        {
-            return false;
-        }
         this.username = username;
         return true;
     }
 
     public boolean setPassword(String password)
     {
-        if(Objects.isNull(password))
-        {
-            return false;
-        }
-
-        String regex = "^(?=.*[a-z])(?=."
-                        + "*[A-Z])(?=.*\\d)"	
-                        + "(?=.*[-+_!@#$%^&*., ?]).+$";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher(password);
-        if(password.length() < 8 || !m.matches())
-        {
-            return false;
-        }
         this.password = password;
         return true;
     }
 
     public boolean setEmail(String email)
     {
-        if(Objects.isNull(email))
-        {
-            return false;
-        }
-
-        String regex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(email);
-        if(!m.matches())
-        {
-            return false;
-        }
         this.email = email;
         return true;
     }
