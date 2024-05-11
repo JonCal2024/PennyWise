@@ -132,7 +132,7 @@ const BudgetManager = () => {
 
     const addBudget = (budgetInfo) => {
       if (budgetInfo) {
-        console.log(budgetInfo.resetPeriodType)
+
         const budget = {
             reset_period_type: budgetInfo.resetPeriodType,
             user_id: storedUserID,

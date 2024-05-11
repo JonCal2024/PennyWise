@@ -44,11 +44,11 @@ const CategoryForm = ({ onSubmit }) => {
                                 <input type="text" value={categoryName} onChange={(e) => setCategoryName(e.target.value)} required />
                             </label>
                             <label className="input-category-c">
-                                Category description:
+                                Category Description:
                                 <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
                             </label>
                             <label className="input-category-c">
-                                Amount allocated to category:
+                                Amount allocated to Category:
                                 <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
                             </label>   
                             <button type="submit" disabled={!isFormValid} className="add-button" id="add-cat-button">Add Category</button>

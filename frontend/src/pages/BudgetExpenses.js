@@ -14,6 +14,7 @@ const Category = () => {
     const [allCategoryIDs, setAllCategoryIDs] = useState([]);
     const [budget, setBudget] = useState([]);
     const [budgetName, setBudgetName] = useState("")
+    const [deadline, setDeadline] = useState("")
     
     //fetch all categories
     useEffect(() => {
@@ -25,6 +26,7 @@ const Category = () => {
         axios.get(`http://localhost:8080/budgets/${budgetID}`)
         .then(function(response){
             setBudgetName(response.data.name);
+            setDeadline(response.data.reset_deadline)
         });
 
         axios.get(`http://localhost:8080/categories/getAllCategoryOid?budgetID=${budgetID}`)
@@ -125,7 +127,7 @@ const Category = () => {
                         <tbody>
                             {categories.map((category, index) => (
                                 <React.Fragment key={category.categoryID}>  
-                                    <Expense index={index} key={category.categoryID} category={category} categories={categories} setCategories={setCategories} categoryID={category.categoryID} categoryAmount={category.amountAllocated} />       
+                                    <Expense index={index} key={category.categoryID} category={category} categories={categories} setCategories={setCategories} categoryID={category.categoryID} categoryAmount={category.amountAllocated} deadline={deadline}/>       
                                     <tr><td colSpan="6"><hr style={{width: "99%"}}/></td></tr>
                                 </React.Fragment>         
                             ))}
@@ -138,7 +140,7 @@ const Category = () => {
     );
 };
 
-const Expense = ({ category, index, categories, setCategories, categoryID, categoryAmount }) => {
+const Expense = ({ category, index, categories, setCategories, categoryID, categoryAmount, deadline }) => {
     const [expenses, setExpenses] = useState([]);
     let [remainingAmount, setRemainingAmount] = useState(categoryAmount);
     const [allExpensesIDs, setAllExpensesIDs] = useState([]);
@@ -202,10 +204,9 @@ const Expense = ({ category, index, categories, setCategories, categoryID, categ
                         
                         totalExpenseAmount += expenseAmount;
 
-                        console.log(expenseData.amount)
 
                         expenseData.expenseID = expenseID;
-                        console.log(expenseResponse.data)
+
                         setExpenses(prevExpenses => {const updatedExpenses = [...prevExpenses, expenseResponse.data];
                             updatedExpenses.sort((a, b) => {
                                 const dateA = new Date(a.id.date);
@@ -244,11 +245,16 @@ const Expense = ({ category, index, categories, setCategories, categoryID, categ
             const expenseAmount = parseFloat(expenseInfo.amount);
             const newRemainingAmount = remainingAmount - expenseAmount;
             const percentageSpent = ((categoryAmount - newRemainingAmount) / categoryAmount) * 100;
-            const warningThreshold = 50;
+            const warningThreshold = 0;
+
+            const currentDate = new Date()
+            
+            const reset = new Date(deadline)
+            let timeDiff = reset - currentDate
+            let dayDiff = Math.round(timeDiff / (1000 * 3600 * 24));
 
             if (percentageSpent >= warningThreshold) {
-                const remainingDays = 7;
-                alert(`You have spent ${percentageSpent.toFixed(2)}% of your budget. You have $${newRemainingAmount.toFixed(2)} left and ${remainingDays} days remaining in your reset period.`);
+                alert(`You have spent ${percentageSpent.toFixed(2)}% of your budget. You have $${newRemainingAmount.toFixed(2)} left and ${dayDiff} days remaining in your reset period.`);
             }
 
             setRemainingAmount(newRemainingAmount);
