@@ -1,4 +1,3 @@
-# PennyWise
 PennyWise is a budget tracking web application designed to simplify personal finance management.
 
 ## Key Features
